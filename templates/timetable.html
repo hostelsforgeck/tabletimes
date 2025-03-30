@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ college }} - {{ department }} - {{ semester }} Timetable</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap">
+    <style>
+        :root {
+            /* Material You color system - dynamic color palette */
+            --md-primary: #6750A4;
+            --md-primary-container: #EADDFF;
+            --md-on-primary: #FFFFFF;
+            --md-on-primary-container: #21005E;
+            --md-secondary: #625B71;
+            --md-secondary-container: #E8DEF8;
+            --md-on-secondary: #FFFFFF;
+            --md-on-secondary-container: #1E192B;
+            --md-tertiary: #7D5260;
+            --md-tertiary-container: #FFD8E4;
+            --md-on-tertiary: #FFFFFF;
+            --md-on-tertiary-container: #370B1E;
+            --md-error: #B3261E;
+            --md-error-container: #F9DEDC;
+            --md-on-error: #FFFFFF;
+            --md-on-error-container: #370B1E;
+            --md-background: #FFFBFE;
+            --md-on-background: #1C1B1F;
+            --md-surface: #FFFBFE;
+            --md-on-surface: #1C1B1F;
+            --md-surface-variant: #E7E0EC;
+            --md-on-surface-variant: #49454F;
+            --md-outline: #79747E;
+            --md-outline-variant: #CAC4D0;
+            --md-shadow: rgba(0, 0, 0, 0.08);
+            --md-scrim: rgba(0, 0, 0, 0.4);
+            --md-inverse-surface: #313033;
+            --md-inverse-on-surface: #F4EFF4;
+            
+            /* Elevation values for Material You */
+            --md-elevation-level1: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --md-elevation-level2: 0 2px 4px -1px rgba(0, 0, 0, 0.07), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --md-elevation-level3: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --md-elevation-level4: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --md-elevation-level5: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Border radii */
+            --md-radius-small: 8px;
+            --md-radius-medium: 16px; 
+            --md-radius-large: 24px;
+            --md-radius-extra-large: 28px;
+            
+            /* Typography scale */
+            --md-font-family: 'Google Sans', sans-serif;
+            
+            /* Spacing variables */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+        }
+
+        /* Adjust body padding to account for navbar's new position */
+        body {
+            padding-top: 88px; /* Adjusted for responsive navbar */
+            background-color: #f5f5f7;
+            color: var(--md-on-background);
+            font-family: var(--md-font-family);
+            line-height: 1.6;
+            letter-spacing: 0.15px;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Material Card Styles */
+        .md-card {
+            background-color: var(--md-surface);
+            border-radius: var(--md-radius-medium);
+            box-shadow: var(--md-elevation-level2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            border: none;
+        }
+
+        .md-card:hover {
+            box-shadow: var(--md-elevation-level3);
+            transform: translateY(-2px);
+        }
+
+        /* Material Button Styles */
+        .md-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: var(--md-radius-large);
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            padding: 10px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+            height: 40px;
+        }
+
+        .md-button-filled {
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+        }
+
+        .md-button-filled:hover {
+            box-shadow: var(--md-elevation-level2);
+            opacity: 0.92;
+        }
+
+        .md-button-filled:active {
+            box-shadow: var(--md-elevation-level1);
+        }
+
+        .md-button-tonal {
+            background-color: var(--md-secondary-container);
+            color: var(--md-on-secondary-container);
+        }
+
+        .md-button-tonal:hover {
+            box-shadow: var(--md-elevation-level1);
+            opacity: 0.92;
+        }
+
+        .md-button-outline {
+            background-color: transparent;
+            color: var(--md-primary);
+            border: 1px solid var(--md-outline);
+        }
+
+        .md-button-outline:hover {
+            background-color: rgba(103, 80, 164, 0.05);
+        }
+
+        .md-button-text {
+            background-color: transparent;
+            color: var(--md-primary);
+            padding: 10px 16px;
+            font-size: 15px;
+        }
+
+        .md-button-text:hover {
+            background-color: rgba(103, 80, 164, 0.08);
+        }
+
+        .md-button i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Material You Tabs */
+        .md-tabs {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--md-outline-variant);
+            padding-bottom: 0;
+            gap: var(--spacing-sm);
+            /* Add these to center the tabs */
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .md-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .md-tab {
+            padding: 14px 20px;
+            margin: 0 2px;
+            color: var(--md-on-surface-variant);
+            border: none;
+            background: transparent;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-radius: 0;
+            font-size: 15px;
+        }
+
+        .md-tab:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--md-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .md-tab.active {
+            color: var(--md-primary);
+            font-weight: 600;
+        }
+
+        .md-tab.active:after {
+            transform: scaleX(1);
+        }
+
+        .md-tab-content {
+            padding: var(--spacing-lg) 0;
+        }
+
+        /* Updated navbar styling with Bootstrap classes */
+        .md-navbar {
+            background-color: var(--md-surface);
+            box-shadow: var(--md-elevation-level2);
+            color: var(--md-on-surface);
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: var(--md-radius-large);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 0 var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+
+        .md-navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .md-navbar-brand {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--md-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.3px;
+        }
+
+        .md-navbar-brand i {
+            margin-right: 12px;
+            font-size: 22px;
+        }
+
+        .md-navbar-toggler {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--md-primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .md-navbar-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .md-navbar-item {
+            margin-left: var(--spacing-sm);
+        }
+
+        /* Container styling */
+        .md-container {
+            max-width: 1200px;
+            margin: var(--spacing-xl) auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Time info styling - IMPROVED */
+        .md-time-display {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-left: auto; /* Push to the right */
+        }
+        
+        .md-time-info-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--md-surface);
+            border-radius: var(--md-radius-large);
+            padding: 10px 16px;
+            box-shadow: var(--md-elevation-level1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .md-time-info-item h5 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--md-on-surface);
+        }
+
+        /* Current class card */
+        .md-current-class {
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            border-radius: var(--md-radius-large);
+            box-shadow: var(--md-elevation-level2);
+        }
+
+        .md-current-class-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .md-current-class-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--spacing-md);
+            box-shadow: var(--md-elevation-level1);
+        }
+        
+        .md-current-class-icon i {
+            font-size: 20px;
+        }
+
+        .md-current-class-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        .md-current-class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .md-current-class-item {
+            background-color: var(--md-surface-variant);
+            border-radius: var(--md-radius-medium);
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .md-current-class-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--md-elevation-level1);
+        }
+
+        .md-current-class-item-label {
+            color: var(--md-on-surface-variant);
+            font-size: 13px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+        }
+
+        .md-current-class-item-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--md-on-surface);
+            letter-spacing: -0.3px;
+        }
+
+        /* Schedule table - IMPROVED */
+        .md-table-container {
+            background-color: var(--md-surface);
+            border-radius: var(--md-radius-large);
+            box-shadow: var(--md-elevation-level2);
+            padding: var(--spacing-lg);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .md-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .md-table thead th {
+            color: var(--md-on-surface-variant);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 16px;
+            text-align: left;
+            border: none;
+            position: sticky;
+            top: 0;
+            background-color: var(--md-surface);
+            z-index: 10;
+            box-shadow: 0 1px 0 var(--md-outline-variant);
+        }
+        
+        .md-table thead th i {
+            margin-right: 8px;
+            color: var(--md-primary);
+            opacity: 0.8;
+        }
+
+        .md-table tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--md-outline-variant);
+        }
+
+        .md-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .md-table tbody tr:hover {
+            background-color: rgba(103, 80, 164, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .md-table tbody td {
+            padding: 16px;
+            border: none;
+            color: var(--md-on-surface);
+            font-size: 15px;
+            line-height: 1.5;
+            vertical-align: middle;
+        }
+
+        .md-current-session {
+            background-color: var(--md-primary-container) !important;
+            position: relative;
+            border-radius: var(--md-radius-small);
+            transform: scale(1.02);
+            z-index: 5;
+        }
+
+        .md-current-session td {
+            color: var(--md-on-primary-container) !important;
+            font-weight: 600;
+            padding: 18px 16px;
+            border-radius: var(--md-radius-medium);
+        }
+
+        .md-current-session:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--md-primary);
+            border-top-left-radius: var(--md-radius-small);
+            border-bottom-left-radius: var(--md-radius-small);
+        }
+        
+        .md-current-session:after {
+            content: "Current";
+            position: absolute;
+            top: 0;
+            right: 16px;
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Page title */
+        .md-title {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .md-title h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin: 0;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+        }
+
+        /* No class message */
+        .md-no-class {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .md-no-class-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background-color: var(--md-tertiary-container);
+            color: var(--md-on-tertiary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            box-shadow: var(--md-elevation-level1);
+        }
+
+        .md-no-class-icon i {
+            font-size: 32px;
+        }
+
+        .md-no-class-text {
+            font-size: 18px;
+            color: var(--md-on-surface-variant);
+            font-weight: 500;
+            margin-top: var(--spacing-md);
+        }
+
+        /* Updated header container to place time info on right */
+        .md-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        /* Day schedule heading */
+        .day-schedule-heading {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-xs);
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .day-schedule-heading:before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 22px;
+            background-color: var(--md-primary);
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        
+        /* Time column styling */
+        .md-table .time-column {
+            font-weight: 500;
+            white-space: nowrap;
+            color: var(--md-primary);
+        }
+        
+        /* Subject column styling */
+        .md-table .subject-column {
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        
+        /* Room column styling */
+        .md-table .room-column {
+            font-variant-numeric: tabular-nums;
+            text-align: center;
+            background-color: rgba(103, 80, 164, 0.05);
+            border-radius: var(--md-radius-small);
+            font-weight: 500;
+            padding: 6px 12px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        /* See More Button Styling */
+        .see-more-container {
+            display: flex;
+            justify-content: center;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .see-more-button {
+            background-color: var(--md-primary-container);
+            color: var(--md-on-primary-container);
+            padding: 10px 24px;
+            border-radius: var(--md-radius-large);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            box-shadow: var(--md-elevation-level1);
+        }
+
+        .see-more-button:hover {
+            box-shadow: var(--md-elevation-level2);
+            transform: translateY(-2px);
+        }
+
+        .see-more-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .see-more-button.expanded i {
+            transform: rotate(180deg);
+        }
+
+        /* Hidden content */
+        .hidden-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hidden-content.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Mobile responsiveness - Enhanced */
+        @media (max-width: 992px) {
+            .md-navbar {
+                top: 8px;
+                border-radius: var(--md-radius-medium);
+                padding: 0 var(--spacing-md);
+            }
+            
+            body {
+                padding-top: 72px;
+            }
+            
+            .md-title h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .md-navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+                padding: 0 var(--spacing-md);
+            }
+            
+            .md-navbar-toggler {
+                display: block;
+            }
+            
+            .md-navbar-menu {
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background-color: var(--md-surface);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: var(--spacing-md);
+                box-shadow: var(--md-elevation-level2);
+                display: none;
+                z-index: 1000;
+            }
+            
+            .md-navbar-menu.show {
+                display: flex;
+            }
+            
+            .md-navbar-item {
+                margin: var(--spacing-xs) 0;
+                width: 100%;
+            }
+            
+            .md-navbar-item .md-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .md-header-container {
+                flex-direction: row;
+                align-items: center;
+                gap: var(--spacing-md);
+            }
+            
+            .md-title {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .md-title h1 {
+                font-size: 18px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .md-time-display {
+                gap: var(--spacing-sm);
+            }
+            
+            .md-time-info-item {
+                padding: 6px 10px;
+            }
+            
+            .md-time-info-item h5 {
+                font-size: 13px;
+            }
+            
+            .md-table-container {
+                padding: 8px;
+                overflow-x: auto;
+            }
+            
+            .md-table {
+                min-width: 600px;
+            }
+            
+            .md-table thead th {
+                padding: 12px;
+                font-size: 12px;
+            }
+            
+            .md-table tbody td {
+                padding: 12px;
+                font-size: 13px;
+            }
+            
+            .md-tabs {
+                justify-content: flex-start;
+                padding-bottom: var(--spacing-xs);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .md-header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .md-title {
+                width: 100%;
+                margin-bottom: var(--spacing-sm);
+            }
+            
+            .md-time-display {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .md-current-class {
+                padding: var(--spacing-md);
+            }
+            
+            .md-current-class-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .md-current-class-item {
+                padding: var(--spacing-md);
+            }
+            
+            .md-tab {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bootstrap-enhanced responsive navbar -->
+    <header class="md-navbar">
+        <div class="md-navbar-container">
+            <a href="/" class="md-navbar-brand">
+                <i class="fas fa-calendar-alt"></i>
+                tabletimes
+            </a>
+            <button class="md-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+<!-- To this -->
+<nav class="md-navbar-menu navbar-collapse" id="navbarMenu">
+                <div class="md-navbar-item">
+                    <a href="/" class="md-button md-button-text">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </div>
+                <div class="md-navbar-item">
+                    <a href="/about" class="md-button md-button-text">
+                        <i class="fas fa-info-circle"></i>
+                        About
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="md-container">
+        <!-- Updated header with time info moved to the right -->
+        <div class="md-header-container">
+            <div class="md-title">
+                <h1>{{ college }} - {{ department }} - {{ semester }}</h1>
+            </div>
+            <div class="md-time-display">
+                <div class="md-time-info-item">
+                    <h5>{{ current_day }}</h5>
+                </div>
+                <div class="md-time-info-item">
+                    <h5>{{ current_time }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        {% if current_class %}
+        <div class="md-card md-current-class">
+            <div class="md-current-class-header">
+                <div class="md-current-class-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h3 class="md-current-class-title">Current Session</h3>
+            </div>
+            <div class="md-current-class-grid">
+                <div class="md-current-class-item">
+                    <span class="md-current-class-item-label">Subject</span>
+                    <span class="md-current-class-item-value">{{ current_class.subject }}</span>
+                </div>
+                <div class="md-current-class-item">
+                    <span class="md-current-class-item-label">Teacher</span>
+                    <span class="md-current-class-item-value">{{ current_class.teacher }}</span>
+                </div>
+                <div class="md-current-class-item">
+                    <span class="md-current-class-item-label">Room</span>
+                    <span class="md-current-class-item-value">{{ current_class.room }}</span>
+                </div>
+                <div class="md-current-class-item">
+                    <span class="md-current-class-item-label">Time</span>
+                    <span class="md-current-class-item-value">{{ current_class.start }} - {{ current_class.end }}</span>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="md-card md-current-class">
+            <div class="md-no-class">
+                <div class="md-no-class-icon">
+                    <i class="fas fa-coffee"></i>
+                </div>
+                <p class="md-no-class-text">There is no class scheduled at the current time.</p>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- See More Button -->
+        <div class="see-more-container">
+            <button id="seeMoreButton" class="see-more-button">
+                <span>See Full Schedule</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        
+        
+        <!-- Hidden content that will be shown on button click -->
+        <div id="hiddenContent" class="hidden-content">
+            <div class="md-tabs" role="tablist">
+                {% for day in timetable.keys() %}
+                <button class="md-tab {% if day == current_day %}active{% endif %}" 
+                        id="{{ day }}-tab" 
+                        data-bs-toggle="tab" 
+                        data-bs-target="#{{ day }}" 
+                        type="button" 
+                        role="tab" 
+                        aria-controls="{{ day }}" 
+                        aria-selected="{% if day == current_day %}true{% else %}false{% endif %}">
+                    {{ day }}
+                </button>
+                {% endfor %}
+            </div>
+            
+            <div class="tab-content" id="dayTabsContent">
+                {% for day, sessions in timetable.items() %}
+                <div class="tab-pane fade {% if day == current_day %}show active{% endif %}" 
+                    id="{{ day }}" 
+                     role="tabpanel" 
+                     aria-labelledby="{{ day }}-tab">
+                    
+                    <h3 class="day-schedule-heading">{{ day }} Schedule</h3>
+                    
+                    <div class="md-table-container">
+                        <table class="md-table">
+                            <thead>
+                                <tr>
+                                    <th width="20%"><i class="fas fa-clock"></i>Time</th>
+                                    <th width="35%"><i class="fas fa-book"></i>Subject</th>
+                                    <th width="30%"><i class="fas fa-user-tie"></i>Teacher</th>
+                                    <th width="15%"><i class="fas fa-door-open"></i>Room</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for session in sessions %}
+                                <tr {% if day == current_day and current_class and session.subject == current_class.subject and session.start == current_class.start %}class="md-current-session"{% endif %}>
+                                    <td class="time-column">{{ session.start }} - {{ session.end }}</td>
+                                    <td class="subject-column">{{ session.subject }}</td>
+                                    <td>{{ session.teacher }}</td>
+                                    <td><span class="room-column">{{ session.room }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script to handle the See More button -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const seeMoreButton = document.getElementById('seeMoreButton');
+            const hiddenContent = document.getElementById('hiddenContent');
+            
+            seeMoreButton.addEventListener('click', function() {
+                hiddenContent.classList.toggle('visible');
+                seeMoreButton.classList.toggle('expanded');
+                
+                if (hiddenContent.classList.contains('visible')) {
+                    seeMoreButton.querySelector('span').textContent = 'Hide Schedule';
+                } else {
+                    seeMoreButton.querySelector('span').textContent = 'See Full Schedule';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Convert all 24hr times to 12hr format with AM/PM
+    function convertTo12HourFormat(timeStr) {
+        if (!timeStr) return '';
+        
+        // Check if it's already in 12-hour format
+        if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) {
+            return timeStr;
+        }
+        
+        const [hours, minutes] = timeStr.split(':').map(part => parseInt(part, 10));
+        
+        if (isNaN(hours) || isNaN(minutes)) return timeStr;
+        
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const hours12 = hours % 12 || 12; // Convert 0 to 12
+        
+        return `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
+    
+    // Convert all time elements on the page
+    function convertAllTimeFormats() {
+        // Convert times in the table
+        document.querySelectorAll('.time-column').forEach(timeCell => {
+            const timeText = timeCell.textContent;
+            if (timeText.includes(' - ')) {
+                const [startTime, endTime] = timeText.split(' - ');
+                timeCell.textContent = `${convertTo12HourFormat(startTime)} - ${convertTo12HourFormat(endTime)}`;
+            }
+        });
+        
+        // Convert time in current class card if it exists
+        const currentClassTimeElements = document.querySelectorAll('.md-current-class-item-value');
+        currentClassTimeElements.forEach(element => {
+            const timeText = element.textContent;
+            if (timeText && timeText.includes(' - ')) {
+                const [startTime, endTime] = timeText.split(' - ');
+                element.textContent = `${convertTo12HourFormat(startTime)} - ${convertTo12HourFormat(endTime)}`;
+            }
+        });
+    }
+    
+    // Update current time
+    function updateCurrentTime() {
+        const timeDisplay = document.querySelector('.md-time-info-item:last-child h5');
+        if (timeDisplay) {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            const period = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12; // Convert 0 to 12
+            
+            timeDisplay.textContent = `${hours}:${minutes}:${seconds} ${period}`;
+        }
+    }
+    
+    // Initial conversions
+    convertAllTimeFormats();
+    
+    // Initial time update
+    updateCurrentTime();
+    
+    // Update time every second
+    setInterval(updateCurrentTime, 1000);
+    
+    // Check current class every minute
+    setInterval(function() {
+        // If you want to refresh the class data without a full page reload,
+        // you would need to implement an AJAX call here to fetch updated data
+        console.log("Checking for class updates...");
+    }, 60000);
+});
+    </script>
+</body>
+</html>

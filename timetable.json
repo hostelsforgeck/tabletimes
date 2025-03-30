@@ -1,0 +1,136 @@
+{
+    "geck" : {
+      "csd": {
+        "s1": {
+            "Monday": [
+                { "start": "00:00:00", "end": "10:29:59", "subject": "Mathematics", "teacher": "Dr. Kumar", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+            ],
+            "Tuesday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "102" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Maths", "teacher": "Dr. Kumar", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+            ],
+            "Wednesday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "102" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+            ],
+            "Thursday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "102" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" }
+            ],
+            "Friday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "102" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "101" }
+            ],
+            "Saturday": [
+                { "start": "03:10:00", "end": "10:29:59", "subject": "Seminar", "teacher": "Guest Lecturer", "room": "Auditorium" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Project Discussion", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Maths", "teacher": "Dr. Kumar", "room": "101" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Open Discussion", "teacher": "Faculty", "room": "101" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Sports", "teacher": "Coach", "room": "Ground" }
+            ],
+            "Sunday": [
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Open Discussion", "teacher": "Faculty", "room": "101" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Sports", "teacher": "Coach", "room": "Ground" },
+                { "start": "21:00:00", "end": "22:29:59", "subject": "Seminar", "teacher": "Guest Lecturer", "room": "Auditorium" },
+                { "start": "22:30:00", "end": "24:50:59", "subject": "Malabarrrrrrrrrr.", "teacher": "Ismail M", "room": "playground" }
+            ]
+        }
+    },
+  
+    "ece": {
+        "S1": {
+            "Monday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Mathematics", "teacher": "Dr. Kumar", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+            ],
+            "Tuesday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "102" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Maths", "teacher": "Dr. Kumar", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+            ],
+            "Wednesday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "102" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+            ],
+            "Thursday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "102" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" }
+            ],
+            "Friday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "101" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "102" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "101" }
+            ],
+            "Saturday": [
+                { "start": "09:30:00", "end": "10:29:59", "subject": "Seminar", "teacher": "Guest Lecturer", "room": "Auditorium" },
+                { "start": "10:30:00", "end": "11:29:59", "subject": "Project Discussion", "teacher": "Mr. Arjun", "room": "101" },
+                { "start": "11:30:00", "end": "12:29:59", "subject": "Maths", "teacher": "Dr. Kumar", "room": "101" },
+                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Open Discussion", "teacher": "Faculty", "room": "101" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Sports", "teacher": "Coach", "room": "Ground" }
+            ],
+            "Sunday": [
+                { "start": "13:30:00", "end": "14:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
+                { "start": "14:30:00", "end": "15:29:59", "subject": "Open Discussion", "teacher": "Faculty", "room": "101" },
+                { "start": "15:30:00", "end": "16:29:59", "subject": "Sports", "teacher": "Coach", "room": "Ground" },
+                { "start": "22:29:00", "end": "22:29:59", "subject": "Seminar", "teacher": "Guest Lecturer", "room": "Auditorium" },
+                { "start": "22:30:00", "end": "23:50:59", "subject": "njan ec aan", "teacher": "Ismail M", "room": "playground" }
+            ]
+        }
+    }
+    }
+  }
+  
