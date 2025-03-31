@@ -35,6 +35,16 @@ def show_timetable_form():
 @app.route('/<college>/<department>/<semester>')
 def show_timetable(college, department, semester):
     try:
+        # Check if the keys exist in the data structure
+        if college not in timetable_data:
+            return render_template('error.html', message=f"College '{college}' not found")
+        
+        if department not in timetable_data[college]:
+            return render_template('error.html', message=f"Department '{department}' not found in '{college}'")
+        
+        if semester not in timetable_data[college][department]:
+            return render_template('error.html', message=f"Semester '{semester}' not found in '{college}/{department}'")
+        
         # Get the timetable for the specified college, department, and semester
         timetable = timetable_data[college][department][semester]
         
@@ -51,6 +61,9 @@ def show_timetable(college, department, semester):
                     current_class = session
                     break
         
+        # Debug information
+        print(f"Loading timetable for: {college}/{department}/{semester}")
+        
         return render_template(
             'timetable.html',
             college=college,
@@ -61,8 +74,8 @@ def show_timetable(college, department, semester):
             current_time=current_time,
             current_class=current_class
         )
-    except KeyError:
-        return render_template('error.html', message="Invalid college, department, or semester")
+    except Exception as e:
+        return render_template('error.html', message=f"Error: {str(e)}")
 
 if __name__ == '__main__':
     app.run(debug=True)

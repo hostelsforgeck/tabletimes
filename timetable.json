@@ -46,24 +46,61 @@
                 { "start": "13:30:00", "end": "14:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
                 { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
                 { "start": "15:30:00", "end": "16:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "101" }
-            ],
-            "Saturday": [
-                { "start": "03:10:00", "end": "10:29:59", "subject": "Seminar", "teacher": "Guest Lecturer", "room": "Auditorium" },
-                { "start": "10:30:00", "end": "11:29:59", "subject": "Project Discussion", "teacher": "Mr. Arjun", "room": "101" },
-                { "start": "11:30:00", "end": "12:29:59", "subject": "Maths", "teacher": "Dr. Kumar", "room": "101" },
-                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Open Discussion", "teacher": "Faculty", "room": "101" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "Sports", "teacher": "Coach", "room": "Ground" }
-            ],
-            "Sunday": [
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Open Discussion", "teacher": "Faculty", "room": "101" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "Sports", "teacher": "Coach", "room": "Ground" },
-                { "start": "21:00:00", "end": "22:29:59", "subject": "Seminar", "teacher": "Guest Lecturer", "room": "Auditorium" },
-                { "start": "22:30:00", "end": "24:50:59", "subject": "Malabarrrrrrrrrr.", "teacher": "Ismail M", "room": "playground" }
             ]
+            
+            
+        },
+
+        "s6": {
+            "Monday": [
+                { "start": "09:30:01", "end": "10:30:00", "subject": "CG", "teacher": "Hridya Miss", "room": "112" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "CD", "teacher": "Shine Sir", "room": "112" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "CD-Tutorial", "teacher": "Shine Sir", "room": "112" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "IFT", "teacher": "Shareef Sir", "room": "112" },
+                { "start": "14:30:01", "end": "15:30:00", "subject": "ELECTIVE", "teacher": "Drishya/Shajila Miss", "room": "LAB/112" },
+                { "start": "15:30:01", "end": "16:30:00", "subject": "COMP", "teacher": "Drishya Miss", "room": "112" }
+            ],
+            "Tuesday": [
+                { "start": "09:30:01", "end": "10:30:00", "subject": "ELECTIVE", "teacher": "Drishya/Shajila Miss", "room": "LAB/112"  },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "AAD", "teacher": "Shahana Miss", "room": "112" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "CG", "teacher": "Hridya Miss", "room": "112" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "13:30:01", "end": "16:30:00", "subject": "CASE LAB/MINI PROJECT", "teacher": "Nahana/Hridya Miss", "room": "LAB" },
+                { "start": "16:30:01", "end": "17:30:00", "subject": "MINOR", "teacher": "Hridya Miss", "room": "112" }
+            ],
+            "Wednesday": [
+                { "start": "08:30:01", "end": "09:30:00", "subject": "MINOR", "teacher": "Hridya Miss", "room": "112"},
+                { "start": "09:30:01", "end": "10:30:00",  "subject": "CD", "teacher": "Shine Sir", "room": "112" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "CG", "teacher": "Hridya Miss", "room": "112" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "AAD", "teacher": "Shahana Miss", "room": "112" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "AAD-Tutorial", "teacher": "Shahana Miss", "room": "112"},
+                { "start": "14:30:01", "end": "15:30:00", "subject": "IFT", "teacher": "Shareef Sir", "room": "112" },
+                { "start": "15:30:01", "end": "16:30:00", "subject": "HONOUR", "teacher": "Shahana Miss", "room": "112" }
+            ],
+            "Thursday": [
+                { "start": "08:30:01", "end": "09:30:00", "subject": "MINOR", "teacher": "Hridya Miss", "room": "112"},
+                { "start": "09:30:01", "end": "12:30:00", "subject": "CASE LAB/MINI PROJECT", "teacher": "Nahana/Hridya Miss", "room": "LAB" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "CG-Tutorial", "teacher": "Hridya Miss", "room": "112"},
+                { "start": "14:30:01", "end": "15:30:00", "subject": "IFT", "teacher": "Shareef Sir", "room": "112"  },
+                { "start": "15:30:01", "end": "16:30:00", "subject": "HONOUR", "teacher": "Shahana Miss", "room": "112" }
+            ],
+            "Friday": [
+                { "start": "09:30:01", "end": "10:30:00", "subject": "AAD", "teacher": "Shahana Miss", "room": "112" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "CD", "teacher": "Shine Sir", "room": "112" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "ELECTIVE", "teacher": "Drishya/Shajila Miss", "room": "LAB/112" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "HONOUR", "teacher": "Shahana Miss", "room": "112" },
+                { "start": "14:30:01", "end": "15:30:00", "subject": "MINOR", "teacher": "Hridya Miss", "room": "112" },
+                { "start": "15:30:01", "end": "16:30:00", "subject": "HONOUR", "teacher": "Shahana Miss", "room": "112" }
+            ]
+            
+            
         }
+
+
     },
   
     "ece": {

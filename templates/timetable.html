@@ -218,66 +218,125 @@
             padding: var(--spacing-lg) 0;
         }
 
-        /* Updated navbar styling with Bootstrap classes */
-        .md-navbar {
-            background-color: var(--md-surface);
-            box-shadow: var(--md-elevation-level2);
-            color: var(--md-on-surface);
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: 100%;
-            max-width: 1200px;
-            border-radius: var(--md-radius-large);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 0 var(--spacing-lg);
-            transition: all 0.3s ease;
-        }
+        /* Navbar styling without Bootstrap dependencies */
+.md-navbar {
+    background-color: var(--md-surface);
+    box-shadow: var(--md-elevation-level2);
+    color: var(--md-on-surface);
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: var(--md-radius-large);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 0 var(--spacing-lg);
+    transition: all 0.3s ease;
+}
 
-        .md-navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
+.md-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+}
 
-        .md-navbar-brand {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--md-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: -0.3px;
-        }
+.md-navbar-brand {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--md-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.3px;
+}
 
-        .md-navbar-brand i {
-            margin-right: 12px;
-            font-size: 22px;
-        }
+.md-navbar-brand i {
+    margin-right: 12px;
+    font-size: 22px;
+}
 
-        .md-navbar-toggler {
-            display: none;
-            border: none;
-            background: transparent;
-            color: var(--md-primary);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px;
-        }
+.md-navbar-toggler {
+    display: none;
+    border: none;
+    background: transparent;
+    color: var(--md-primary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+}
 
-        .md-navbar-menu {
-            display: flex;
-            align-items: center;
-        }
+.md-navbar-menu {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    justify-content: flex-end;
+}
 
-        .md-navbar-item {
-            margin-left: var(--spacing-sm);
-        }
+.md-navbar-item {
+    margin-left: var(--spacing-sm);
+}
+
+/* Mobile responsiveness for navbar */
+@media (max-width: 768px) {
+    .md-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        padding: 0 var(--spacing-md);
+    }
+    
+    .md-navbar-toggler {
+        display: block;
+    }
+    
+    .md-navbar-menu {
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background-color: var(--md-surface);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--spacing-md);
+        box-shadow: var(--md-elevation-level2);
+        z-index: 1000;
+        
+        /* Animation properties */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    
+    .md-navbar-menu.active {
+        max-height: 300px;
+        opacity: 1;
+        transform: translateY(0);
+        padding: var(--spacing-md);
+    }
+    
+    .md-navbar-item {
+        margin: var(--spacing-xs) 0;
+        width: 100%;
+    }
+    
+    .md-navbar-item .md-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
 
         /* Container styling */
         .md-container {
@@ -569,6 +628,8 @@
             white-space: nowrap;
             color: var(--md-primary);
         }
+
+        
         
         /* Subject column styling */
         .md-table .subject-column {
@@ -669,22 +730,33 @@
             }
             
             .md-navbar-menu {
-                position: absolute;
-                top: 72px;
-                left: 0;
-                right: 0;
-                background-color: var(--md-surface);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: var(--spacing-md);
-                box-shadow: var(--md-elevation-level2);
-                display: none;
-                z-index: 1000;
-            }
-            
-            .md-navbar-menu.show {
-                display: flex;
-            }
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background-color: var(--md-surface);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    box-shadow: var(--md-elevation-level2);
+    z-index: 1000;
+    
+    /* Animation properties */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.md-navbar-menu.active {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: var(--spacing-md);
+}
             
             .md-navbar-item {
                 margin: var(--spacing-xs) 0;
@@ -696,10 +768,12 @@
                 justify-content: center;
             }
             
+            /* MODIFIED: Keep md-header-container as row layout in mobile */
             .md-header-container {
                 flex-direction: row;
                 align-items: center;
                 gap: var(--spacing-md);
+                flex-wrap: nowrap;
             }
             
             .md-title {
@@ -716,6 +790,7 @@
             
             .md-time-display {
                 gap: var(--spacing-sm);
+                flex-shrink: 0;
             }
             
             .md-time-info-item {
@@ -752,19 +827,34 @@
         }
 
         @media (max-width: 480px) {
+            /* MODIFIED: Keep md-header-container as row layout even at smallest screens */
             .md-header-container {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                gap: var(--spacing-sm);
+                margin-bottom: var(--spacing-md);
             }
             
             .md-title {
-                width: 100%;
-                margin-bottom: var(--spacing-sm);
+                flex: 1;
+                min-width: 0;
+                margin-bottom: 0;
+            }
+            
+            .md-title h1 {
+                font-size: 16px;
             }
             
             .md-time-display {
-                width: 100%;
-                justify-content: flex-start;
+                flex-shrink: 0;
+            }
+            
+            .md-time-info-item {
+                padding: 4px 8px;
+            }
+            
+            .md-time-info-item h5 {
+                font-size: 12px;
             }
             
             .md-current-class {
@@ -788,34 +878,33 @@
 </head>
 <body>
     <!-- Bootstrap-enhanced responsive navbar -->
-    <header class="md-navbar">
-        <div class="md-navbar-container">
-            <a href="/" class="md-navbar-brand">
-                <i class="fas fa-calendar-alt"></i>
-                tabletimes
-            </a>
-            <button class="md-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- Custom navbar without Bootstrap -->
+<header class="md-navbar">
+    <div class="md-navbar-container">
+        <a href="/" class="md-navbar-brand">
+            <i class="fas fa-calendar-alt"></i>
+            tabletimes
+        </a>
+        <button class="md-navbar-toggler" type="button" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
 
-<!-- To this -->
-<nav class="md-navbar-menu navbar-collapse" id="navbarMenu">
-                <div class="md-navbar-item">
-                    <a href="/" class="md-button md-button-text">
-                        <i class="fas fa-home"></i>
-                        Home
-                    </a>
-                </div>
-                <div class="md-navbar-item">
-                    <a href="/about" class="md-button md-button-text">
-                        <i class="fas fa-info-circle"></i>
-                        About
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
-
+        <nav class="md-navbar-menu" id="navbarMenu">
+            <div class="md-navbar-item">
+                <a href="/" class="md-button md-button-text">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+            </div>
+            <div class="md-navbar-item">
+                <a href="/about" class="md-button md-button-text">
+                    <i class="fas fa-info-circle"></i>
+                    About
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
     <div class="md-container">
         <!-- Updated header with time info moved to the right -->
         <div class="md-header-container">
@@ -831,7 +920,7 @@
                 </div>
             </div>
         </div>
-        
+
         {% if current_class %}
         <div class="md-card md-current-class">
             <div class="md-current-class-header">
@@ -934,7 +1023,40 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Custom navbar toggle functionality
+// Custom navbar toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggler = document.querySelector('.md-navbar-toggler');
+    const navbarMenu = document.querySelector('.md-navbar-menu');
     
+    navbarToggler.addEventListener('click', function() {
+        navbarMenu.classList.toggle('active'); // This should match the CSS class
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInside = navbarToggler.contains(event.target) || 
+                             navbarMenu.contains(event.target);
+        
+        if (!isClickInside && navbarMenu.classList.contains('active')) {
+            navbarMenu.classList.remove('active');
+        }
+    });
+    
+    // Close menu when window is resized to desktop view
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navbarMenu.classList.contains('active')) {
+            navbarMenu.classList.remove('active');
+        }
+    });
+});
+        
+    
+
+    </script>
+
+
     <!-- Script to handle the See More button -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -957,22 +1079,26 @@
         document.addEventListener('DOMContentLoaded', function() {
     // Convert all 24hr times to 12hr format with AM/PM
     function convertTo12HourFormat(timeStr) {
-        if (!timeStr) return '';
-        
-        // Check if it's already in 12-hour format
-        if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) {
-            return timeStr;
-        }
-        
-        const [hours, minutes] = timeStr.split(':').map(part => parseInt(part, 10));
-        
-        if (isNaN(hours) || isNaN(minutes)) return timeStr;
-        
-        const period = hours >= 12 ? 'PM' : 'AM';
-        const hours12 = hours % 12 || 12; // Convert 0 to 12
-        
-        return `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
+    if (!timeStr) return '';
+    
+    // Check if it's already in 12-hour format
+    if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) {
+        return timeStr;
     }
+    
+    const [hours, minutes] = timeStr.split(':').map(part => parseInt(part, 10));
+    
+    if (isNaN(hours) || isNaN(minutes)) return timeStr;
+    
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 || 12; // Convert 0 to 12
+    
+    // This line ensures all hours display with at least 2 characters
+    // Either by padding with a space or by having 2 digits naturally
+    const formattedHours = hours12.toString().padStart(2, '0'); // Use space for padding
+    
+    return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+}
     
     // Convert all time elements on the page
     function convertAllTimeFormats() {
