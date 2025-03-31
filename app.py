@@ -77,5 +77,10 @@ def show_timetable(college, department, semester):
     except Exception as e:
         return render_template('error.html', message=f"Error: {str(e)}")
 
+
+@app.route('/calculator')
+def calculator():
+    return render_template('calculator.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunk Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --md-primary: #6750A4;
+            --md-primary-container: #EADDFF;
+            --md-on-primary: #FFFFFF;
+            --md-on-primary-container: #21005E;
+            --md-secondary: #625B71;
+            --md-secondary-container: #E8DEF8;
+            --md-on-secondary: #FFFFFF;
+            --md-on-secondary-container: #1E192B;
+            --md-surface: #FFFBFE;
+            --md-on-surface: #1C1B1F;
+            --md-surface-variant: #E7E0EC;
+            --md-on-surface-variant: #49454F;
+            --md-outline: #79747E;
+            --md-outline-variant: #CAC4D0;
+            --md-error: #B3261E;
+            --md-error-container: #F9DEDC;
+            --md-background: #f5f5f7;
+            --md-radius-small: 8px;
+            --md-radius-medium: 16px;
+            --md-radius-large: 24px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --md-elevation-level1: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --md-elevation-level2: 0 2px 4px -1px rgba(0, 0, 0, 0.07), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --md-elevation-level3: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --animation-duration: 0.5s;
+            --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding-top: 88px;
+            background-color: var(--md-background);
+            color: var(--md-on-surface);
+            line-height: 1.6;
+        }
+
+        .md-navbar {
+            background-color: var(--md-surface);
+            box-shadow: var(--md-elevation-level2);
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: var(--md-radius-large);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 0 var(--spacing-lg);
+        }
+
+        .md-navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .md-navbar-brand {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--md-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .md-navbar-brand i {
+            margin-right: 12px;
+            font-size: 22px;
+        }
+
+        .md-navbar-toggler {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--md-primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .md-navbar-menu {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .md-navbar-item {
+            margin-left: var(--spacing-sm);
+        }
+
+        .md-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: var(--md-radius-large);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .md-button-text {
+            background-color: transparent;
+            color: var(--md-primary);
+            padding: 10px 16px;
+        }
+
+        .md-button-text i {
+            margin-right: 8px;
+        }
+
+        .md-button-filled {
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+            border: none;
+            font-size: 16px;
+            box-shadow: var(--md-elevation-level1);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            padding: 14px 32px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .md-button-filled:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.6s ease-out;
+        }
+
+        .md-button-filled:hover {
+            box-shadow: var(--md-elevation-level2);
+            transform: translateY(-2px);
+        }
+
+        .md-button-filled:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .md-button-filled:active {
+            transform: translateY(0);
+            box-shadow: var(--md-elevation-level1);
+        }
+
+        .md-button-filled i {
+            margin-right: 12px;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .md-button-filled:hover i {
+            transform: rotate(180deg);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .card {
+            background: var(--md-surface);
+            padding: 32px;
+            border-radius: var(--md-radius-large);
+            box-shadow: var(--md-elevation-level2);
+            margin-bottom: 24px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .header i {
+            font-size: 32px;
+            color: var(--md-primary);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            color: var(--md-on-surface);
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--md-on-surface);
+        }
+
+        input {
+            padding: 12px 16px;
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-radius-small);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--md-primary);
+            box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
+        }
+
+        .result-container {
+            margin-top: 24px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s var(--animation-timing);
+            color: var(--md-on-surface);
+            padding: 24px;
+            border-radius: var(--md-radius-medium);
+            background-color: var(--md-primary-container);
+            border: 1px solid rgba(103, 80, 164, 0.1);
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .result-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-container strong {
+            color: var(--md-primary);
+            font-size: 24px;
+            font-weight: 700;
+            padding: 0 4px;
+        }
+
+        .error {
+            color: var(--md-error);
+            padding: 16px;
+            border-radius: var(--md-radius-medium);
+            background-color: var(--md-error-container);
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 24px;
+        }
+
+        th {
+            background-color: var(--md-surface-variant);
+            font-weight: 600;
+            color: var(--md-on-surface);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 16px;
+            border-bottom: 2px solid var(--md-outline-variant);
+        }
+
+        td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--md-outline-variant);
+            font-size: 15px;
+            color: var(--md-on-surface);
+        }
+
+        tr {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all var(--animation-duration) var(--animation-timing);
+        }
+
+        tr.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        tbody tr:hover {
+            background-color: var(--md-surface-variant);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .md-navbar {
+                top: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .md-navbar-toggler {
+                display: block;
+            }
+
+            .md-navbar-menu {
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background-color: var(--md-surface);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: var(--spacing-md);
+                box-shadow: var(--md-elevation-level2);
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+            }
+
+            .md-navbar-menu.active {
+                max-height: 300px;
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .md-navbar-item {
+                margin: var(--spacing-xs) 0;
+                width: 100%;
+            }
+
+            .md-navbar-item .md-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="md-navbar">
+        <div class="md-navbar-container">
+            <a href="/" class="md-navbar-brand">
+                <i class="fas fa-calculator"></i>
+                tabletimes - calculator
+            </a>
+            <button class="md-navbar-toggler" type="button" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="md-navbar-menu" id="navbarMenu">
+                <div class="md-navbar-item">
+                    <a href="/" class="md-button md-button-text">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </div>
+                <div class="md-navbar-item">
+                    <button onclick="window.history.back();" class="md-button md-button-text">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                </div>
+                
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Attendance Calculator</h1>
+            </div>
+            
+            <p>Calculate your attendance percentage and determine how many more classes you need to attend or can safely skip while maintaining the minimum required 75% attendance.</p>
+            
+            <div class="error" id="error"></div>
+            
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="attended">Classes Attended</label>
+                    <input type="number" id="attended" min="0" placeholder="Enter number">
+                </div>
+                <div class="input-field">
+                    <label for="total">Total Classes</label>
+                    <input type="number" id="total" min="1" placeholder="Enter number">
+                </div>
+            </div>
+            
+            <button onclick="calculateBunk()" class="md-button md-button-filled">
+                <i class="fas fa-calculator"></i>
+                Calculate Attendance
+            </button>
+            
+            <div class="result-container" id="finalResult"></div>
+            <table id="resultTable"></table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggler = document.querySelector('.md-navbar-toggler');
+            const navbarMenu = document.querySelector('.md-navbar-menu');
+            
+            navbarToggler.addEventListener('click', function() {
+                navbarMenu.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', function(event) {
+                const isClickInside = navbarToggler.contains(event.target) || 
+                                    navbarMenu.contains(event.target);
+                
+                if (!isClickInside && navbarMenu.classList.contains('active')) {
+                    navbarMenu.classList.remove('active');
+                }
+            });
+            
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && navbarMenu.classList.contains('active')) {
+                    navbarMenu.classList.remove('active');
+                }
+            });
+        });
+
+        function calculateBunk() {
+            let attended = parseInt(document.getElementById('attended').value);
+            let total = parseInt(document.getElementById('total').value);
+            let table = document.getElementById('resultTable');
+            let finalResult = document.getElementById('finalResult');
+            let errorDiv = document.getElementById('error');
+            
+            table.innerHTML = "";
+            finalResult.innerHTML = "";
+            finalResult.classList.remove('show');
+            errorDiv.style.display = 'none';
+
+            if (isNaN(attended) || isNaN(total) || attended > total || total <= 0) {
+                errorDiv.textContent = "Please enter valid numbers";
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            let percentage = (attended / total) * 100;
+            
+            let headerRow = `<tr class="show">
+                <th>Classes Attended</th>
+                <th>Total Classes</th>
+                <th>Percentage</th>
+            </tr>`;
+            
+            table.innerHTML = headerRow;
+            
+            function addRow(content, delay) {
+                setTimeout(() => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = content;
+                    table.appendChild(row);
+                    // Trigger reflow for animation
+                    row.offsetHeight;
+                    setTimeout(() => row.classList.add('show'), 50);
+                }, delay);
+            }
+
+            addRow(`
+                <td>${attended}</td>
+                <td>${total}</td>
+                <td>${percentage.toFixed(2)}%</td>
+            `, 100);
+            
+            if (percentage < 75) {
+                let needed = 0;
+                while ((attended + needed) / (total + needed) * 100 < 75) {
+                    needed++;
+                    let newAttended = attended + needed;
+                    let newTotal = total + needed;
+                    let newPercentage = (newAttended / newTotal) * 100;
+                    
+                    addRow(`
+                        <td>${newAttended}</td>
+                        <td>${newTotal}</td>
+                        <td>${newPercentage.toFixed(2)}%</td>
+                    `, 200 + (needed * 150));
+                }
+                
+                setTimeout(() => {
+                    finalResult.innerHTML = `
+                        <i class="fas fa-info-circle" style="color: var(--md-primary); font-size: 24px; margin-bottom: 12px;"></i>
+                        <div>You need to attend <strong>${needed}</strong> more classes</div>
+                        <div style="font-size: 15px; color: var(--md-on-surface-variant); margin-top: 8px;">
+                            to achieve minimum 75% attendance
+                        </div>
+                    `;
+                    finalResult.classList.add('show');
+                }, 300);
+            } else {
+                let bunks = 0;
+                while ((attended) / (total + bunks) * 100 > 75) {
+                    bunks++;
+                    let newTotal = total + bunks;
+                    let newPercentage = (attended / newTotal) * 100;
+                    
+                    addRow(`
+                        <td>${attended}</td>
+                        <td>${newTotal}</td>
+                        <td>${newPercentage.toFixed(2)}%</td>
+                    `, 200 + (bunks * 150));
+                }
+                
+                setTimeout(() => {
+                    finalResult.innerHTML = `
+                        <i class="fas fa-check-circle" style="color: var(--md-primary); font-size: 24px; margin-bottom: 12px;"></i>
+                        <div>Great news! You can skip <strong>${bunks - 1}</strong> classes</div>
+                        <div style="font-size: 15px; color: var(--md-on-surface-variant); margin-top: 8px;">
+                            while maintaining minimum 75% attendance
+                        </div>
+                    `;
+                    finalResult.classList.add('show');
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>
