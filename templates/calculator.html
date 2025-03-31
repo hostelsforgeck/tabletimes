@@ -118,6 +118,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
         }
 
         .md-button-text {
@@ -128,6 +130,33 @@
 
         .md-button-text i {
             margin-right: 8px;
+        }
+
+        .md-nav-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: var(--md-radius-medium);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--md-primary);
+            background-color: transparent;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .md-nav-link:hover {
+            background-color: var(--md-primary-container);
+            color: var(--md-on-primary-container);
+        }
+
+        .md-nav-link i {
+            margin-right: 8px;
+            font-size: 16px;
         }
 
         .md-button-filled {
@@ -247,13 +276,18 @@
             box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
         }
 
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+        }
+
         .result-container {
             margin-top: 24px;
             font-weight: 500;
             opacity: 0;
             transform: translateY(10px);
             transition: all 0.4s var(--animation-timing);
-            color: var(--md-on-surface);
+            color: var(--md-on-surface-variant);
             padding: 24px;
             border-radius: var(--md-radius-medium);
             background-color: var(--md-primary-container);
@@ -269,10 +303,34 @@
         }
 
         .result-container strong {
-            color: var(--md-primary);
-            font-size: 24px;
+            color: var(--md-on-primary-container);
+            font-size: 32px;
             font-weight: 700;
             padding: 0 4px;
+            display: block;
+            margin: 12px 0;
+        }
+
+        .result-container .result-value {
+            font-size: 36px;
+            color: var(--md-primary);
+            font-weight: 700;
+            padding: 12px 0;
+            display: inline-block;
+        }
+
+        .result-container .result-label {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 8px;
+            color: var(--md-on-primary-container);
+        }
+
+        .result-container .result-explanation {
+            font-size: 15px;
+            color: var(--md-on-surface-variant);
+            margin-top: 12px;
+            font-weight: 400;
         }
 
         .error {
@@ -325,6 +383,33 @@
             background-color: var(--md-surface-variant);
         }
 
+        .app-description {
+            background-color: var(--md-secondary-container);
+            border-radius: var(--md-radius-medium);
+            padding: 16px;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--md-secondary);
+        }
+
+        .app-description h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--md-on-secondary-container);
+            margin-bottom: 8px;
+        }
+
+        .app-description p {
+            margin: 0;
+            color: var(--md-on-secondary-container);
+            font-size: 15px;
+        }
+
+        .result-icon {
+            font-size: 48px;
+            color: var(--md-primary);
+            margin-bottom: 16px;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -347,6 +432,13 @@
 
             .md-navbar-toggler {
                 display: block;
+                position: relative;
+                z-index: 1100;
+                color: var(--md-primary);
+                background-color: transparent;
+                padding: 10px;
+                font-size: 24px;
+                padding-right: 35px;
             }
 
             .md-navbar-menu {
@@ -356,7 +448,7 @@
                 right: 0;
                 background-color: var(--md-surface);
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
                 padding: var(--spacing-md);
                 box-shadow: var(--md-elevation-level2);
                 max-height: 0;
@@ -377,9 +469,11 @@
                 width: 100%;
             }
 
-            .md-navbar-item .md-button {
+            .md-navbar-item .md-nav-link {
                 width: 100%;
-                justify-content: center;
+                justify-content: flex-start;
+                text-align: left;
+                padding: 12px 16px;
             }
 
             .container {
@@ -393,6 +487,13 @@
             .input-group {
                 grid-template-columns: 1fr;
             }
+            
+            /* Center the calculate button in mobile view */
+            .button-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 16px;
+            }
         }
     </style>
 </head>
@@ -401,25 +502,24 @@
         <div class="md-navbar-container">
             <a href="/" class="md-navbar-brand">
                 <i class="fas fa-calculator"></i>
-                tabletimes - calculator
+                tabletimes
             </a>
             <button class="md-navbar-toggler" type="button" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <nav class="md-navbar-menu" id="navbarMenu">
                 <div class="md-navbar-item">
-                    <a href="/" class="md-button md-button-text">
+                    <a href="/" class="md-nav-link">
                         <i class="fas fa-home"></i>
                         Home
                     </a>
                 </div>
                 <div class="md-navbar-item">
-                    <button onclick="window.history.back();" class="md-button md-button-text">
+                    <button onclick="window.history.back();" class="md-nav-link">
                         <i class="fas fa-arrow-left"></i>
                         Back
                     </button>
                 </div>
-                
             </nav>
         </div>
     </header>
@@ -431,7 +531,9 @@
                 <h1>Attendance Calculator</h1>
             </div>
             
-            <p>Calculate your attendance percentage and determine how many more classes you need to attend or can safely skip while maintaining the minimum required 75% attendance.</p>
+            <div class="app-description">
+                <p>Determine how many more <strong>classes you need to attend</strong> or how many <strong>classes you can safely skip</strong> while maintaining 75% attendance.</p>
+            </div>
             
             <div class="error" id="error"></div>
             
@@ -446,10 +548,12 @@
                 </div>
             </div>
             
-            <button onclick="calculateBunk()" class="md-button md-button-filled">
-                <i class="fas fa-calculator"></i>
-                Calculate Attendance
-            </button>
+            <div class="button-container">
+                <button onclick="calculateBunk()" class="md-button md-button-filled">
+                    <i class="fas fa-calculator"></i>
+                    Calculate Attendance
+                </button>
+            </div>
             
             <div class="result-container" id="finalResult"></div>
             <table id="resultTable"></table>
@@ -493,8 +597,9 @@
             finalResult.classList.remove('show');
             errorDiv.style.display = 'none';
 
-            if (isNaN(attended) || isNaN(total) || attended > total || total <= 0) {
-                errorDiv.textContent = "Please enter valid numbers";
+            // Handle negative numbers
+            if (isNaN(attended) || isNaN(total) || attended > total || total <= 0 || attended < 0 || total < 0) {
+                errorDiv.textContent = "Please enter valid positive numbers (Classes attended cannot exceed total classes)";
                 errorDiv.style.display = 'block';
                 return;
             }
@@ -543,10 +648,15 @@
                 
                 setTimeout(() => {
                     finalResult.innerHTML = `
-                        <i class="fas fa-info-circle" style="color: var(--md-primary); font-size: 24px; margin-bottom: 12px;"></i>
-                        <div>You need to attend <strong>${needed}</strong> more classes</div>
-                        <div style="font-size: 15px; color: var(--md-on-surface-variant); margin-top: 8px;">
-                            to achieve minimum 75% attendance
+                        <div class="result-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="result-label">You need to attend</div>
+                        <div class="result-value">${needed}</div>
+                        <div class="result-label">more classes</div>
+                        <div class="result-explanation">
+                            Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
+                            Attend ${needed} more classes without missing any to reach the minimum requirement.
                         </div>
                     `;
                     finalResult.classList.add('show');
@@ -565,12 +675,20 @@
                     `, 200 + (bunks * 150));
                 }
                 
+                // Adjust bunks by 1 because the last calculation drops below 75%
+                let safeBunks = bunks - 1;
+                
                 setTimeout(() => {
                     finalResult.innerHTML = `
-                        <i class="fas fa-check-circle" style="color: var(--md-primary); font-size: 24px; margin-bottom: 12px;"></i>
-                        <div>Great news! You can skip <strong>${bunks - 1}</strong> classes</div>
-                        <div style="font-size: 15px; color: var(--md-on-surface-variant); margin-top: 8px;">
-                            while maintaining minimum 75% attendance
+                        <div class="result-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="result-label">You can safely skip</div>
+                        <div class="result-value">${safeBunks}</div>
+                        <div class="result-label">classes</div>
+                        <div class="result-explanation">
+                            Your current attendance is ${percentage.toFixed(2)}%, which is above the required 75%.
+                            You can skip up to ${safeBunks} classes while still maintaining the minimum attendance requirement.
                         </div>
                     `;
                     finalResult.classList.add('show');
