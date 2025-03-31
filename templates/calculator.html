@@ -586,115 +586,143 @@
         });
 
         function calculateBunk() {
-            let attended = parseInt(document.getElementById('attended').value);
-            let total = parseInt(document.getElementById('total').value);
-            let table = document.getElementById('resultTable');
-            let finalResult = document.getElementById('finalResult');
-            let errorDiv = document.getElementById('error');
-            
-            table.innerHTML = "";
-            finalResult.innerHTML = "";
-            finalResult.classList.remove('show');
-            errorDiv.style.display = 'none';
+    let attended = parseInt(document.getElementById('attended').value);
+    let total = parseInt(document.getElementById('total').value);
+    let table = document.getElementById('resultTable');
+    let finalResult = document.getElementById('finalResult');
+    let errorDiv = document.getElementById('error');
+    
+    table.innerHTML = "";
+    finalResult.innerHTML = "";
+    finalResult.classList.remove('show');
+    errorDiv.style.display = 'none';
 
-            // Handle negative numbers
-            if (isNaN(attended) || isNaN(total) || attended > total || total <= 0 || attended < 0 || total < 0) {
-                errorDiv.textContent = "Please enter valid positive numbers (Classes attended cannot exceed total classes)";
-                errorDiv.style.display = 'block';
-                return;
-            }
+    // Handle negative numbers
+    if (isNaN(attended) || isNaN(total) || attended > total || total <= 0 || attended < 0 || total < 0) {
+        errorDiv.textContent = "Please enter valid positive numbers (Classes attended cannot exceed total classes)";
+        errorDiv.style.display = 'block';
+        return;
+    }
 
-            let percentage = (attended / total) * 100;
-            
-            let headerRow = `<tr class="show">
-                <th>Classes Attended</th>
-                <th>Total Classes</th>
-                <th>Percentage</th>
-            </tr>`;
-            
-            table.innerHTML = headerRow;
-            
-            function addRow(content, delay) {
-                setTimeout(() => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = content;
-                    table.appendChild(row);
-                    // Trigger reflow for animation
-                    row.offsetHeight;
-                    setTimeout(() => row.classList.add('show'), 50);
-                }, delay);
-            }
+    let percentage = (attended / total) * 100;
+    
+    let headerRow = `<tr class="show">
+        <th>Classes Attended</th>
+        <th>Total Classes</th>
+        <th>Percentage</th>
+    </tr>`;
+    
+    table.innerHTML = headerRow;
+    
+    function addRow(content, delay) {
+        setTimeout(() => {
+            const row = document.createElement('tr');
+            row.innerHTML = content;
+            table.appendChild(row);
+            // Trigger reflow for animation
+            row.offsetHeight;
+            setTimeout(() => row.classList.add('show'), 50);
+        }, delay);
+    }
 
+    addRow(`
+        <td>${attended}</td>
+        <td>${total}</td>
+        <td>${percentage.toFixed(2)}%</td>
+    `, 100);
+    
+    if (percentage < 75) {
+        let needed = 0;
+        while ((attended + needed) / (total + needed) * 100 < 75) {
+            needed++;
+            let newAttended = attended + needed;
+            let newTotal = total + needed;
+            let newPercentage = (newAttended / newTotal) * 100;
+            
+            addRow(`
+                <td>${newAttended}</td>
+                <td>${newTotal}</td>
+                <td>${newPercentage.toFixed(2)}%</td>
+            `, 200 + (needed * 150));
+        }
+        
+        setTimeout(() => {
+            finalResult.innerHTML = `
+                <div class="result-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="result-label">You need to attend</div>
+                <div class="result-value">${needed}</div>
+                <div class="result-label">more classes</div>
+                <div class="result-explanation">
+                    Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
+                    Attend ${needed} more classes without missing any to reach the minimum requirement.
+                </div>
+            `;
+            finalResult.classList.add('show');
+            
+            // Scroll to the results container with padding
+            setTimeout(() => {
+                // Get the position of the element
+                const yOffset = -80; // Adjust this value for more or less padding
+                const elementRect = finalResult.getBoundingClientRect();
+                const absoluteY = elementRect.top + window.pageYOffset;
+                const y = absoluteY + yOffset;
+                
+                window.scrollTo({
+                    top: y,
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }, 300);
+    } else {
+        let bunks = 0;
+        while ((attended) / (total + bunks) * 100 > 75) {
+            bunks++;
+            let newTotal = total + bunks;
+            let newPercentage = (attended / newTotal) * 100;
+            
             addRow(`
                 <td>${attended}</td>
-                <td>${total}</td>
-                <td>${percentage.toFixed(2)}%</td>
-            `, 100);
-            
-            if (percentage < 75) {
-                let needed = 0;
-                while ((attended + needed) / (total + needed) * 100 < 75) {
-                    needed++;
-                    let newAttended = attended + needed;
-                    let newTotal = total + needed;
-                    let newPercentage = (newAttended / newTotal) * 100;
-                    
-                    addRow(`
-                        <td>${newAttended}</td>
-                        <td>${newTotal}</td>
-                        <td>${newPercentage.toFixed(2)}%</td>
-                    `, 200 + (needed * 150));
-                }
-                
-                setTimeout(() => {
-                    finalResult.innerHTML = `
-                        <div class="result-icon">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                        <div class="result-label">You need to attend</div>
-                        <div class="result-value">${needed}</div>
-                        <div class="result-label">more classes</div>
-                        <div class="result-explanation">
-                            Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
-                            Attend ${needed} more classes without missing any to reach the minimum requirement.
-                        </div>
-                    `;
-                    finalResult.classList.add('show');
-                }, 300);
-            } else {
-                let bunks = 0;
-                while ((attended) / (total + bunks) * 100 > 75) {
-                    bunks++;
-                    let newTotal = total + bunks;
-                    let newPercentage = (attended / newTotal) * 100;
-                    
-                    addRow(`
-                        <td>${attended}</td>
-                        <td>${newTotal}</td>
-                        <td>${newPercentage.toFixed(2)}%</td>
-                    `, 200 + (bunks * 150));
-                }
-                
-                // Adjust bunks by 1 because the last calculation drops below 75%
-                let safeBunks = bunks - 1;
-                
-                setTimeout(() => {
-                    finalResult.innerHTML = `
-                        <div class="result-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="result-label">You can safely skip</div>
-                        <div class="result-value">${safeBunks}</div>
-                        <div class="result-label">classes</div>
-                        <div class="result-explanation">
-                            Your current attendance is ${percentage.toFixed(2)}%, which is above the required 75%.
-                            You can skip up to ${safeBunks} classes while still maintaining the minimum attendance requirement.
-                        </div>
-                    `;
-                    finalResult.classList.add('show');
-                }, 300);
-            }
+                <td>${newTotal}</td>
+                <td>${newPercentage.toFixed(2)}%</td>
+            `, 200 + (bunks * 150));
         }
+        
+        // Adjust bunks by 1 because the last calculation drops below 75%
+        let safeBunks = bunks - 1;
+        
+        setTimeout(() => {
+            finalResult.innerHTML = `
+                <div class="result-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="result-label">You can safely skip</div>
+                <div class="result-value">${safeBunks}</div>
+                <div class="result-label">classes</div>
+                <div class="result-explanation">
+                    Your current attendance is ${percentage.toFixed(2)}%, which is above the required 75%.
+                    You can skip up to ${safeBunks} classes while still maintaining the minimum attendance requirement.
+                </div>
+            `;
+            finalResult.classList.add('show');
+            
+            // Scroll to the results container with padding
+            setTimeout(() => {
+                // Get the position of the element
+                const yOffset = -80; // Adjust this value for more or less padding
+                const elementRect = finalResult.getBoundingClientRect();
+                const absoluteY = elementRect.top + window.pageYOffset;
+                const y = absoluteY + yOffset;
+                
+                window.scrollTo({
+                    top: y,
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }, 300);
+    }
+}
     </script>
 </body>
 </html>
