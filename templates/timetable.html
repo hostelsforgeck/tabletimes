@@ -874,6 +874,146 @@
                 font-size: 13px;
             }
         }
+
+
+        /* Lunch Break Styling */
+.lunch-break {
+    background-color: #FEF7E6;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.lunch-break .md-current-class-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.lunch-icon {
+    background-color: #F9A825 !important;
+    animation: pulse 2s infinite;
+}
+
+.lunch-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg) var(--spacing-md);
+    text-align: center;
+}
+
+.lunch-animation {
+    display: flex;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+    justify-content: center;
+}
+
+.lunch-item {
+    font-size: 28px;
+    color: var(--md-primary);
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.lunch-item:nth-child(1) {
+    color: #F57C00;
+    animation-name: float1;
+}
+
+.lunch-item:nth-child(2) {
+    color: #8BC34A;
+    animation-name: float2;
+}
+
+.lunch-item:nth-child(3) {
+    color: #795548;
+    animation-name: float3;
+}
+
+.lunch-item:nth-child(4) {
+    color: #FF5722;
+    animation-name: float4;
+}
+
+.lunch-message {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    margin-bottom: var(--spacing-md);
+}
+
+.lunch-time {
+    background-color: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    padding: 8px 16px;
+    border-radius: var(--md-radius-medium);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(249, 168, 37, 0.7);
+    }
+    
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(249, 168, 37, 0);
+    }
+    
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(249, 168, 37, 0);
+    }
+}
+
+@keyframes float1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes float4 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .lunch-animation {
+        gap: var(--spacing-lg);
+    }
+    
+    .lunch-item {
+        font-size: 24px;
+    }
+    
+    .lunch-message {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lunch-animation {
+        gap: var(--spacing-md);
+    }
+    
+    .lunch-item {
+        font-size: 20px;
+    }
+}
     </style>
 </head>
 <body>
@@ -923,42 +1063,61 @@
         </div>
 
         {% if current_class %}
-        <div class="md-card md-current-class">
-            <div class="md-current-class-header">
-                <div class="md-current-class-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <h3 class="md-current-class-title">Current Session</h3>
-            </div>
-            <div class="md-current-class-grid">
-                <div class="md-current-class-item">
-                    <span class="md-current-class-item-label">Subject</span>
-                    <span class="md-current-class-item-value">{{ current_class.subject }}</span>
-                </div>
-                <div class="md-current-class-item">
-                    <span class="md-current-class-item-label">Teacher</span>
-                    <span class="md-current-class-item-value">{{ current_class.teacher }}</span>
-                </div>
-                <div class="md-current-class-item">
-                    <span class="md-current-class-item-label">Room</span>
-                    <span class="md-current-class-item-value">{{ current_class.room }}</span>
-                </div>
-                <div class="md-current-class-item">
-                    <span class="md-current-class-item-label">Time</span>
-                    <span class="md-current-class-item-value">{{ current_class.start }} - {{ current_class.end }}</span>
-                </div>
-            </div>
+<div class="md-card md-current-class">
+    <div class="md-current-class-header">
+        <div class="md-current-class-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
         </div>
-        {% else %}
-        <div class="md-card md-current-class">
-            <div class="md-no-class">
-                <div class="md-no-class-icon">
-                    <i class="fas fa-coffee"></i>
-                </div>
-                <p class="md-no-class-text">There is no class scheduled at the current time.</p>
-            </div>
+        <h3 class="md-current-class-title">Current Session</h3>
+    </div>
+    <div class="md-current-class-grid">
+        <div class="md-current-class-item">
+            <span class="md-current-class-item-label">Subject</span>
+            <span class="md-current-class-item-value">{{ current_class.subject }}</span>
         </div>
-        {% endif %}
+        <div class="md-current-class-item">
+            <span class="md-current-class-item-label">Teacher</span>
+            <span class="md-current-class-item-value">{{ current_class.teacher }}</span>
+        </div>
+        <div class="md-current-class-item">
+            <span class="md-current-class-item-label">Room</span>
+            <span class="md-current-class-item-value">{{ current_class.room }}</span>
+        </div>
+        <div class="md-current-class-item">
+            <span class="md-current-class-item-label">Time</span>
+            <span class="md-current-class-item-value">{{ current_class.start }} - {{ current_class.end }}</span>
+        </div>
+    </div>
+</div>
+{% elif is_lunch_break %}
+<div class="md-card md-current-class lunch-break">
+    <div class="md-current-class-header">
+        <div class="md-current-class-icon lunch-icon">
+            <i class="fas fa-utensils"></i>
+        </div>
+        <h3 class="md-current-class-title">Lunch Break</h3>
+    </div>
+    <div class="lunch-content">
+        <div class="lunch-animation">
+            <i class="fas fa-hamburger lunch-item"></i>
+            <i class="fas fa-apple-alt lunch-item"></i>
+            <i class="fas fa-coffee lunch-item"></i>
+            <i class="fas fa-pizza-slice lunch-item"></i>
+        </div>
+        <p class="lunch-message">Time to refuel! Enjoy your lunch break.</p>
+        <div class="lunch-time">{{ lunch_break.start }} - {{ lunch_break.end }}</div>
+    </div>
+</div>
+{% else %}
+<div class="md-card md-current-class">
+    <div class="md-no-class">
+        <div class="md-no-class-icon">
+            <i class="fas fa-coffee"></i>
+        </div>
+        <p class="md-no-class-text">There is no class scheduled at the current time.</p>
+    </div>
+</div>
+{% endif %}
         
         <!-- See More Button -->
         <div class="see-more-container">
@@ -1024,46 +1183,168 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Custom navbar toggle functionality
-// Custom navbar toggle functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const navbarToggler = document.querySelector('.md-navbar-toggler');
-    const navbarMenu = document.querySelector('.md-navbar-menu');
-    
-    navbarToggler.addEventListener('click', function() {
-        navbarMenu.classList.toggle('active'); // This should match the CSS class
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInside = navbarToggler.contains(event.target) || 
-                             navbarMenu.contains(event.target);
-        
-        if (!isClickInside && navbarMenu.classList.contains('active')) {
-            navbarMenu.classList.remove('active');
-        }
-    });
-    
-    // Close menu when window is resized to desktop view
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && navbarMenu.classList.contains('active')) {
-            navbarMenu.classList.remove('active');
-        }
-    });
-});
-        
-    
-
-    </script>
-
-
-    <!-- Script to handle the See More button -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const seeMoreButton = document.getElementById('seeMoreButton');
-            const hiddenContent = document.getElementById('hiddenContent');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to convert time from 24-hour to 12-hour format
+        function convertTo12HourFormat(timeStr) {
+            if (!timeStr) return '';
             
+            // Check if it's already in 12-hour format
+            if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) {
+                return timeStr;
+            }
+            
+            const [hours, minutes] = timeStr.split(':').map(part => parseInt(part, 10));
+            
+            if (isNaN(hours) || isNaN(minutes)) return timeStr;
+            
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const hours12 = hours % 12 || 12; // Convert 0 to 12
+            
+            // This line ensures all hours display with at least 2 characters
+            const formattedHours = hours12.toString().padStart(2, '0');
+            
+            return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+        }
+
+        // Function to check if current time is lunch break
+        function checkLunchBreak() {
+            // Get current class data from the Flask template
+            const currentClass = {{ current_class|tojson if current_class else 'null' }};
+            
+            // Set is_lunch_break variable for template
+            window.is_lunch_break = false;
+            
+            if (currentClass && 
+                (currentClass.subject.toLowerCase().includes('lunch') || 
+                 currentClass.subject.toLowerCase().includes('break'))) {
+                
+                window.is_lunch_break = true;
+                
+                // Store lunch break info
+                window.lunch_break = {
+                    start: currentClass.start,
+                    end: currentClass.end
+                };
+                
+                // Replace regular class display with lunch break display
+                const currentClassElement = document.querySelector('.md-current-class');
+                if (currentClassElement && !currentClassElement.classList.contains('lunch-break')) {
+                    currentClassElement.innerHTML = generateLunchBreakHTML(currentClass);
+                    currentClassElement.classList.add('lunch-break');
+                }
+            }
+        }
+        
+        // Generate lunch break HTML
+        function generateLunchBreakHTML(lunchData) {
+            return `
+                <div class="md-current-class-header">
+                    <div class="md-current-class-icon lunch-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="md-current-class-title">Lunch Break</h3>
+                </div>
+                <div class="lunch-content">
+                    <div class="lunch-animation">
+                        <i class="fas fa-hamburger lunch-item"></i>
+                        <i class="fas fa-apple-alt lunch-item"></i>
+                        <i class="fas fa-coffee lunch-item"></i>
+                        <i class="fas fa-pizza-slice lunch-item"></i>
+                    </div>
+                    <p class="lunch-message">Time to refuel! Enjoy your lunch break.</p>
+                    <div class="lunch-time">${convertTo12HourFormat(lunchData.start)} - ${convertTo12HourFormat(lunchData.end)}</div>
+                </div>
+            `;
+        }
+        
+        // Convert all time elements on the page
+        function convertAllTimeFormats() {
+            // Convert times in the table
+            document.querySelectorAll('.time-column').forEach(timeCell => {
+                const timeText = timeCell.textContent;
+                if (timeText.includes(' - ')) {
+                    const [startTime, endTime] = timeText.split(' - ');
+                    timeCell.textContent = `${convertTo12HourFormat(startTime)} - ${convertTo12HourFormat(endTime)}`;
+                }
+            });
+            
+            // Convert time in current class card if it exists
+            const currentClassTimeElements = document.querySelectorAll('.md-current-class-item-value');
+            currentClassTimeElements.forEach(element => {
+                const timeText = element.textContent;
+                if (timeText && timeText.includes(' - ')) {
+                    const [startTime, endTime] = timeText.split(' - ');
+                    element.textContent = `${convertTo12HourFormat(startTime)} - ${convertTo12HourFormat(endTime)}`;
+                }
+            });
+        }
+        
+        // Update current time
+        function updateCurrentTime() {
+            const timeDisplay = document.querySelector('.md-time-info-item:last-child h5');
+            if (timeDisplay) {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                
+                const period = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12; // Convert 0 to 12
+                
+                timeDisplay.textContent = `${hours}:${minutes}:${seconds} ${period}`;
+            }
+        }
+        
+        // Initial function calls
+        convertAllTimeFormats();
+        updateCurrentTime();
+        checkLunchBreak();
+        
+        // Update time every second
+        setInterval(updateCurrentTime, 1000);
+        
+        // Check lunch break status every minute
+        setInterval(checkLunchBreak, 60000);
+    });
+</script>
+
+<script>
+    // Custom navbar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbarToggler = document.querySelector('.md-navbar-toggler');
+        const navbarMenu = document.querySelector('.md-navbar-menu');
+        
+        navbarToggler.addEventListener('click', function() {
+            navbarMenu.classList.toggle('active'); // This should match the CSS class
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = navbarToggler.contains(event.target) || 
+                                 navbarMenu.contains(event.target);
+            
+            if (!isClickInside && navbarMenu.classList.contains('active')) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+        
+        // Close menu when window is resized to desktop view
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navbarMenu.classList.contains('active')) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+<!-- Script to handle the See More button -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const seeMoreButton = document.getElementById('seeMoreButton');
+        const hiddenContent = document.getElementById('hiddenContent');
+        
+        if (seeMoreButton && hiddenContent) {
             seeMoreButton.addEventListener('click', function() {
                 hiddenContent.classList.toggle('visible');
                 seeMoreButton.classList.toggle('expanded');
@@ -1074,87 +1355,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     seeMoreButton.querySelector('span').textContent = 'See Full Schedule';
                 }
             });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    // Convert all 24hr times to 12hr format with AM/PM
-    function convertTo12HourFormat(timeStr) {
-    if (!timeStr) return '';
-    
-    // Check if it's already in 12-hour format
-    if (timeStr.toLowerCase().includes('am') || timeStr.toLowerCase().includes('pm')) {
-        return timeStr;
-    }
-    
-    const [hours, minutes] = timeStr.split(':').map(part => parseInt(part, 10));
-    
-    if (isNaN(hours) || isNaN(minutes)) return timeStr;
-    
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const hours12 = hours % 12 || 12; // Convert 0 to 12
-    
-    // This line ensures all hours display with at least 2 characters
-    // Either by padding with a space or by having 2 digits naturally
-    const formattedHours = hours12.toString().padStart(2, '0'); // Use space for padding
-    
-    return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
-}
-    
-    // Convert all time elements on the page
-    function convertAllTimeFormats() {
-        // Convert times in the table
-        document.querySelectorAll('.time-column').forEach(timeCell => {
-            const timeText = timeCell.textContent;
-            if (timeText.includes(' - ')) {
-                const [startTime, endTime] = timeText.split(' - ');
-                timeCell.textContent = `${convertTo12HourFormat(startTime)} - ${convertTo12HourFormat(endTime)}`;
-            }
-        });
-        
-        // Convert time in current class card if it exists
-        const currentClassTimeElements = document.querySelectorAll('.md-current-class-item-value');
-        currentClassTimeElements.forEach(element => {
-            const timeText = element.textContent;
-            if (timeText && timeText.includes(' - ')) {
-                const [startTime, endTime] = timeText.split(' - ');
-                element.textContent = `${convertTo12HourFormat(startTime)} - ${convertTo12HourFormat(endTime)}`;
-            }
-        });
-    }
-    
-    // Update current time
-    function updateCurrentTime() {
-        const timeDisplay = document.querySelector('.md-time-info-item:last-child h5');
-        if (timeDisplay) {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            
-            const period = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12; // Convert 0 to 12
-            
-            timeDisplay.textContent = `${hours}:${minutes}:${seconds} ${period}`;
         }
-    }
-    
-    // Initial conversions
-    convertAllTimeFormats();
-    
-    // Initial time update
-    updateCurrentTime();
-    
-    // Update time every second
-    setInterval(updateCurrentTime, 1000);
-    
-    // Check current class every minute
-    setInterval(function() {
-        // If you want to refresh the class data without a full page reload,
-        // you would need to implement an AJAX call here to fetch updated data
-        console.log("Checking for class updates...");
-    }, 60000);
-});
-    </script>
+    });
+</script>
 </body>
 </html>
