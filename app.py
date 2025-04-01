@@ -1,4 +1,5 @@
 import json
+import pytz
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 
@@ -48,10 +49,11 @@ def show_timetable(college, department, semester):
         # Get the timetable for the specified college, department, and semester
         timetable = timetable_data[college][department][semester]
         
-        # Get current day and time
-        now = datetime.now()
-        current_day = now.strftime('%A')
-        current_time = now.strftime('%H:%M:%S')
+        # Get current day and time in IST
+        ist = pytz.timezone('Asia/Kolkata')
+        now_ist = datetime.now(ist)
+        current_day = now_ist.strftime('%A')
+        current_time = now_ist.strftime('%H:%M:%S')
         
         # Find the current class if it exists
         current_class = None
@@ -63,6 +65,7 @@ def show_timetable(college, department, semester):
         
         # Debug information
         print(f"Loading timetable for: {college}/{department}/{semester}")
+        print(f"Current IST time: {current_time}, Current day: {current_day}")
         
         return render_template(
             'timetable.html',
