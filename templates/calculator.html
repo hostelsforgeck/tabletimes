@@ -496,6 +496,73 @@
             }
         }
     </style>
+    <style>
+        /* Adding only new or modified styles */
+        .tabs-container {
+            display: flex;
+            border-bottom: 1px solid var(--md-outline-variant);
+            margin-bottom: 16px;
+            overflow-x: auto;
+            place-content: center;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--md-on-surface-variant);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            color: var(--md-primary);
+            border-bottom: 2px solid var(--md-primary);
+        }
+        
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s var(--animation-timing);
+        }
+        
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .swipe-instruction {
+            text-align: center;
+            font-size: 14px;
+            color: var(--md-on-surface-variant);
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .swipe-instruction i {
+            margin: 0 8px;
+            animation: swipeAnimation 1.5s infinite;
+        }
+        
+        @keyframes swipeAnimation {
+            0% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            100% { transform: translateX(-5px); }
+        }
+
+        .tab i {
+            margin-right: 8px;
+        }
+        
+        #resultTabs {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header class="md-navbar">
@@ -555,8 +622,40 @@
                 </button>
             </div>
             
-            <div class="result-container" id="finalResult"></div>
-            <table id="resultTable"></table>
+            <!-- Tabs for results when attendance is below 75% -->
+            <div id="resultTabs">
+                <div class="swipe-instruction">
+                    <i class="fas fa-chevron-left"></i>
+                    Swipe between options
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="tabs-container">
+                    <div class="tab active" onclick="switchTab(0)">
+                        <i class="fas fa-calendar-plus"></i>
+                        Attend 
+                    </div>
+                    <div class="tab" onclick="switchTab(1)">
+                        <i class="fas fa-praying-hands"></i>
+                        Request 
+                    </div>
+                </div>
+                
+                <div class="tab-content active" id="attendMoreTab">
+                    <div class="result-container show" id="attendMoreResult"></div>
+                    <table id="attendMoreTable"></table>
+                </div>
+                
+                <div class="tab-content" id="begTeacherTab">
+                    <div class="result-container show" id="begTeacherResult"></div>
+                    <table id="begTeacherTable"></table>
+                </div>
+            </div>
+            
+            <!-- For cases where attendance is above 75% -->
+            <div id="skipClassesContainer">
+                <div class="result-container" id="skipClassesResult"></div>
+                <table id="skipClassesTable"></table>
+            </div>
         </div>
     </div>
 
@@ -585,87 +684,86 @@
             });
         });
 
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            tabs[tabIndex].classList.add('active');
+            tabContents[tabIndex].classList.add('active');
+        }
+
         function calculateBunk() {
-    let attended = parseInt(document.getElementById('attended').value);
-    let total = parseInt(document.getElementById('total').value);
-    let table = document.getElementById('resultTable');
-    let finalResult = document.getElementById('finalResult');
-    let errorDiv = document.getElementById('error');
-    
-    table.innerHTML = "";
-    finalResult.innerHTML = "";
-    finalResult.classList.remove('show');
-    errorDiv.style.display = 'none';
-
-    // Handle negative numbers
-    if (isNaN(attended) || isNaN(total) || attended > total || total <= 0 || attended < 0 || total < 0) {
-        errorDiv.textContent = "Please enter valid positive numbers (Classes attended cannot exceed total classes)";
-        errorDiv.style.display = 'block';
-        return;
-    }
-
-    let percentage = (attended / total) * 100;
-    
-    let headerRow = `<tr class="show">
-        <th>Classes Attended</th>
-        <th>Total Classes</th>
-        <th>Percentage</th>
-    </tr>`;
-    
-    table.innerHTML = headerRow;
-    
-    function addRow(content, delay) {
-        setTimeout(() => {
-            const row = document.createElement('tr');
-            row.innerHTML = content;
-            table.appendChild(row);
-            // Trigger reflow for animation
-            row.offsetHeight;
-            setTimeout(() => row.classList.add('show'), 50);
-        }, delay);
-    }
-
-    addRow(`
-        <td>${attended}</td>
-        <td>${total}</td>
-        <td>${percentage.toFixed(2)}%</td>
-    `, 100);
-    
-    if (percentage < 75) {
-        let needed = 0;
-        while ((attended + needed) / (total + needed) * 100 < 75) {
-            needed++;
-            let newAttended = attended + needed;
-            let newTotal = total + needed;
-            let newPercentage = (newAttended / newTotal) * 100;
+            let attended = parseInt(document.getElementById('attended').value);
+            let total = parseInt(document.getElementById('total').value);
+            let resultTabs = document.getElementById('resultTabs');
+            let skipClassesContainer = document.getElementById('skipClassesContainer');
+            let errorDiv = document.getElementById('error');
             
-            addRow(`
-                <td>${newAttended}</td>
-                <td>${newTotal}</td>
-                <td>${newPercentage.toFixed(2)}%</td>
-            `, 200 + (needed * 150));
+            // Reset all result containers and tables
+            document.getElementById('attendMoreResult').innerHTML = "";
+            document.getElementById('begTeacherResult').innerHTML = "";
+            document.getElementById('skipClassesResult').innerHTML = "";
+            document.getElementById('attendMoreTable').innerHTML = "";
+            document.getElementById('begTeacherTable').innerHTML = "";
+            document.getElementById('skipClassesTable').innerHTML = "";
+            
+            resultTabs.style.display = 'none';
+            skipClassesContainer.style.display = 'none';
+            errorDiv.style.display = 'none';
+
+            // Handle negative numbers
+            if (isNaN(attended) || isNaN(total) || attended > total || total <= 0 || attended < 0 || total < 0) {
+                errorDiv.textContent = "Please enter valid positive numbers (Classes attended cannot exceed total classes)";
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            let percentage = (attended / total) * 100;
+            
+            if (percentage < 75) {
+                resultTabs.style.display = 'block';
+                calculateAttendMoreOption(attended, total, percentage);
+                calculateBegTeacherOption(attended, total, percentage);
+                
+                // Default to first tab
+                switchTab(0);
+            } else {
+                skipClassesContainer.style.display = 'block';
+                calculateSkipClassesOption(attended, total, percentage);
+            }
         }
-        
-        setTimeout(() => {
-            finalResult.innerHTML = `
-                <div class="result-icon">
-                    <i class="fas fa-exclamation-circle"></i>
-                </div>
-                <div class="result-label">You need to attend</div>
-                <div class="result-value">${needed}</div>
-                <div class="result-label">more classes</div>
-                <div class="result-explanation">
-                    Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
-                    Attend ${needed} more classes without missing any to reach the minimum requirement.
-                </div>
-            `;
-            finalResult.classList.add('show');
-            
-            // Scroll to the results container with padding
+
+        function createTableHeader(tableId) {
+            const table = document.getElementById(tableId);
+            let headerRow = `<tr class="show">
+                <th>Classes Attended</th>
+                <th>Total Classes</th>
+                <th>Percentage</th>
+            </tr>`;
+            table.innerHTML = headerRow;
+            return table;
+        }
+
+        function addRow(table, content, delay) {
             setTimeout(() => {
+                const row = document.createElement('tr');
+                row.innerHTML = content;
+                table.appendChild(row);
+                // Trigger reflow for animation
+                row.offsetHeight;
+                setTimeout(() => row.classList.add('show'), 50);
+            }, delay);
+        }
+
+        function scrollToResult(elementId) {
+            setTimeout(() => {
+                const element = document.getElementById(elementId);
                 // Get the position of the element
                 const yOffset = -80; // Adjust this value for more or less padding
-                const elementRect = finalResult.getBoundingClientRect();
+                const elementRect = element.getBoundingClientRect();
                 const absoluteY = elementRect.top + window.pageYOffset;
                 const y = absoluteY + yOffset;
                 
@@ -674,55 +772,138 @@
                     behavior: 'smooth'
                 });
             }, 300);
-        }, 300);
-    } else {
-        let bunks = 0;
-        while ((attended) / (total + bunks) * 100 > 75) {
-            bunks++;
-            let newTotal = total + bunks;
-            let newPercentage = (attended / newTotal) * 100;
+        }
+
+        function calculateAttendMoreOption(attended, total, percentage) {
+            const resultContainer = document.getElementById('attendMoreResult');
+            const table = createTableHeader('attendMoreTable');
             
-            addRow(`
+            addRow(table, `
                 <td>${attended}</td>
-                <td>${newTotal}</td>
-                <td>${newPercentage.toFixed(2)}%</td>
-            `, 200 + (bunks * 150));
-        }
-        
-        // Adjust bunks by 1 because the last calculation drops below 75%
-        let safeBunks = bunks - 1;
-        
-        setTimeout(() => {
-            finalResult.innerHTML = `
-                <div class="result-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="result-label">You can safely skip</div>
-                <div class="result-value">${safeBunks}</div>
-                <div class="result-label">classes</div>
-                <div class="result-explanation">
-                    Your current attendance is ${percentage.toFixed(2)}%, which is above the required 75%.
-                    You can skip up to ${safeBunks} classes while still maintaining the minimum attendance requirement.
-                </div>
-            `;
-            finalResult.classList.add('show');
+                <td>${total}</td>
+                <td>${percentage.toFixed(2)}%</td>
+            `, 100);
             
-            // Scroll to the results container with padding
-            setTimeout(() => {
-                // Get the position of the element
-                const yOffset = -80; // Adjust this value for more or less padding
-                const elementRect = finalResult.getBoundingClientRect();
-                const absoluteY = elementRect.top + window.pageYOffset;
-                const y = absoluteY + yOffset;
+            // Calculate classes needed to attend
+            let needed = 0;
+            while ((attended + needed) / (total + needed) * 100 < 75) {
+                needed++;
+                let newAttended = attended + needed;
+                let newTotal = total + needed;
+                let newPercentage = (newAttended / newTotal) * 100;
                 
-                window.scrollTo({
-                    top: y,
-                    behavior: 'smooth'
-                });
+                addRow(table, `
+                    <td>${newAttended}</td>
+                    <td>${newTotal}</td>
+                    <td>${newPercentage.toFixed(2)}%</td>
+                `, 200 + (needed * 150));
+            }
+            
+            setTimeout(() => {
+                resultContainer.innerHTML = `
+                    <div class="result-icon">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="result-label">You need to attend</div>
+                    <div class="result-value">${needed}</div>
+                    <div class="result-label">more classes</div>
+                    <div class="result-explanation">
+                        Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
+                        <br>
+                        Attend ${needed} more classes without missing any to reach the 75%.
+                    </div>
+                `;
+                scrollToResult('resultTabs');
             }, 300);
-        }, 300);
-    }
-}
+        }
+
+        function calculateBegTeacherOption(attended, total, percentage) {
+            const resultContainer = document.getElementById('begTeacherResult');
+            const table = createTableHeader('begTeacherTable');
+            
+            addRow(table, `
+                <td>${attended}</td>
+                <td>${total}</td>
+                <td>${percentage.toFixed(2)}%</td>
+            `, 100);
+            
+            // Calculate how many attendance marks needed from teacher
+            let needed = 0;
+            while ((attended + needed) / total * 100 < 75) {
+                needed++;
+                let newAttended = attended + needed;
+                let newPercentage = (newAttended / total) * 100;
+                
+                addRow(table, `
+                    <td>${newAttended}</td>
+                    <td>${total}</td>
+                    <td>${newPercentage.toFixed(2)}%</td>
+                `, 200 + (needed * 150));
+            }
+            
+            setTimeout(() => {
+                resultContainer.innerHTML = `
+                    <div class="result-icon">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <div class="result-label">You need to request for</div>
+                    <div class="result-value">${needed}</div>
+                    <div class="result-label">attendance marks</div>
+                    <div class="result-explanation">
+                        Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
+                        <br>
+                        Ask your teacher to mark attendance for ${needed} classes you missed so you can reach 75%.
+                    </div>
+                `;
+            }, 300);
+        }
+
+        function calculateSkipClassesOption(attended, total, percentage) {
+            const resultContainer = document.getElementById('skipClassesResult');
+            const table = createTableHeader('skipClassesTable');
+            
+            addRow(table, `
+                <td>${attended}</td>
+                <td>${total}</td>
+                <td>${percentage.toFixed(2)}%</td>
+            `, 100);
+            
+            // Calculate how many classes you can skip
+            let bunks = 0;
+            while ((attended) / (total + bunks) * 100 >= 75) {
+                bunks++;
+                let newTotal = total + bunks;
+                let newPercentage = (attended / newTotal) * 100;
+                
+                addRow(table, `
+                    <td>${attended}</td>
+                    <td>${newTotal}</td>
+                    <td>${newPercentage.toFixed(2)}%</td>
+                `, 200 + (bunks * 150));
+            }
+            
+            // We need to subtract 1 because the loop continues until we fall below 75%
+            let safeBunks = Math.max(0, bunks - 1); 
+            
+            setTimeout(() => {
+                resultContainer.innerHTML = `
+                    <div class="result-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="result-label">You can safely skip</div>
+                    <div class="result-value">${safeBunks}</div>
+                    <div class="result-label">classes</div>
+                    <div class="result-explanation">
+                        Your current attendance is ${percentage.toFixed(2)}%, which is above the required 75%.
+                        ${safeBunks > 0 ? 
+                          `You can skip up to ${safeBunks} classes while still maintaining the minimum attendance requirement.` : 
+                          `You cannot skip any classes as your attendance is just above the minimum requirement.`}
+                    </div>
+                `;
+                resultContainer.classList.add('show');
+                scrollToResult('skipClassesResult');
+            }, 300);
+        }
     </script>
 </body>
 </html>
