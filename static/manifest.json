@@ -1,0 +1,21 @@
+{
+    "name": "tabletimes.vercel.app",
+    "short_name": "tabletimes",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "/static/assets/logo_192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/static/assets/logo_512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff"
+  }
+  
