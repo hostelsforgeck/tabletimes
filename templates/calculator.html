@@ -9,6 +9,8 @@
 
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="icon" href="{{ url_for('static', filename='assets/logo_512.png') }}" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='assets/logo_192.png') }}" type="image/png">
+
 
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo_512.png') }}">
@@ -610,8 +612,25 @@
             </div>
             
             <div class="app-description">
-                <p>Determine how many more <strong>classes you need to attend</strong> or how many <strong>classes you can safely skip</strong> while maintaining 75% attendance.</p>
+                <ul>
+                    <li><strong>If your attendance is above 75%:</strong>
+                        <ul>
+                            <li>It shows how many classes you can safely skip.</li>
+                        </ul>
+                        
+                        
+                    
+                    </li>
+                    <li><strong>If your attendance is below 75%:</strong>
+                        <ul>
+                            <li>Start attending upcoming classes regularly or, </li>
+                            <li>Try convincing your teacher to mark attendance for missed classes</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
+            
+            
             
             <div class="error" id="error"></div>
             
@@ -637,7 +656,7 @@
             <div id="resultTabs">
                 <div class="swipe-instruction">
                     <i class="fas fa-chevron-left"></i>
-                    Swipe between options
+                    You have 2 options
                     <i class="fas fa-chevron-right"></i>
                 </div>
                 <div class="tabs-container">
@@ -647,7 +666,7 @@
                     </div>
                     <div class="tab" onclick="switchTab(1)">
                         <i class="fas fa-praying-hands"></i>
-                        Request 
+                        Convince 
                     </div>
                 </div>
                 
@@ -814,10 +833,10 @@
                 resultContainer.innerHTML = `
                     <div class="result-icon">
                         <i class="fas fa-calendar-plus"></i>
-                    </div>
-                    <div class="result-label">You need to attend</div>
+                    </div> 
+                    <div class="result-label">Start attending</div>
                     <div class="result-value">${needed}</div>
-                    <div class="result-label">more classes</div>
+                    <div class="result-label">upcoming classes regularly</div>
                     <div class="result-explanation">
                         Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
                         <br>
@@ -857,9 +876,9 @@
                     <div class="result-icon">
                         <i class="fas fa-praying-hands"></i>
                     </div>
-                    <div class="result-label">You need to request for</div>
+                    <div class="result-label">Convince your teacher to <br> mark attendance for</div>
                     <div class="result-value">${needed}</div>
-                    <div class="result-label">attendance marks</div>
+                    <div class="result-label"> missed classes</div>
                     <div class="result-explanation">
                         Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
                         <br>
