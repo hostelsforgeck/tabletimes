@@ -1,51 +1,48 @@
 {
     "geck" : {
       "csd": {
-        "s1": {
+        "s2": {
             "Monday": [
-                { "start": "00:00:00", "end": "10:29:59", "subject": "Mathematics", "teacher": "Dr. Kumar", "room": "101" },
-                { "start": "10:30:00", "end": "11:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
-                { "start": "11:30:00", "end": "12:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
-                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "101" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+                { "start": "09:30:01", "end": "10:30:00", "subject": "EE", "teacher": "Nahana Miss", "room": "MT-LAB" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "PHY", "teacher": "Hashir Sir", "room": "MT-LAB"},
+                { "start": "11:30:01", "end": "12:30:00", "subject": "CP", "teacher": "Sreejith Sir", "room": "MT-LAB" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "MAT", "teacher": "Shabin Sir", "room": "MT-LAB" },
+                { "start": "14:30:01", "end": "16:30:00",  "subject": "PHY/CP LAB", "teacher": "Anupama/Hridya Miss", "room": "LAB" }
             ],
             "Tuesday": [
-                { "start": "09:30:00", "end": "10:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
-                { "start": "10:30:00", "end": "11:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
-                { "start": "11:30:00", "end": "12:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "102" },
-                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Maths", "teacher": "Dr. Kumar", "room": "101" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+                { "start": "09:30:01", "end": "10:30:00", "subject": "CP","teacher": "Sreejith Sir", "room": "MT-LAB" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "DMS", "teacher": "Shine Sir", "room": "MT-LAB"},
+                { "start": "11:30:01", "end": "12:30:00", "subject": "MAT", "teacher": "Shabin Sir", "room": "MT-LAB" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "PHY","teacher": "Hashir Sir", "room": "MT-LAB" },
+                { "start": "14:30:01", "end": "15:30:00", "subject": "CP","teacher": "Sreejith Sir", "room": "MT-LAB" },
+                { "start": "15:30:01", "end": "16:30:00", "subject": "FH", "teacher": "Drishya Miss", "room": "MT-LAB" }
             ],
             "Wednesday": [
-                { "start": "09:30:00", "end": "10:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
-                { "start": "10:30:00", "end": "11:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "102" },
-                { "start": "11:30:00", "end": "12:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" },
-                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" }
+                { "start": "09:30:01", "end": "10:30:00", "subject": "FH", "teacher": "Drishya Miss", "room": "MT-LAB" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "EE","teacher": "Nahana Miss", "room": "MT-LAB" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "DMS",  "teacher": "Shine Sir", "room": "MT-LAB" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "HW", "teacher": "Shajila Miss", "room": "MT-LAB" },
+                { "start": "14:30:01", "end": "16:30:00",  "subject": "IT W/S", "teacher": "Drishya/Shajila Miss", "room": "LAB" }
             ],
             "Thursday": [
-                { "start": "09:30:00", "end": "10:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
-                { "start": "10:30:00", "end": "11:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "101" },
-                { "start": "11:30:00", "end": "12:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "102" },
-                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Programming Fundamentals", "teacher": "Mr. Arjun", "room": "101" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Physics", "teacher": "Ms. Priya", "room": "102" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "Data Structures", "teacher": "Dr. Sharma", "room": "103" }
+                { "start": "09:30:01", "end": "10:30:00", "subject": "FH", "teacher": "Drishya Miss", "room": "MT-LAB" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "PHY", "teacher": "Hashir Sir", "room": "MT-LAB" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "MAT", "teacher": "Shabin Sir", "room": "MT-LAB" },
+                { "start": "12:30:01", "end": "13:30:00", "subject": "Lunch Break", "teacher": "", "room": ""  },
+                { "start": "13:30:01", "end": "14:30:00", "subject": "HW","teacher": "Shajila Miss", "room": "MT-LAB" },
+                { "start": "14:30:01", "end": "15:30:00", "subject": "DMS","teacher": "Shine Sir", "room": "MT-LAB"}
             ],
             "Friday": [
-                { "start": "09:30:00", "end": "10:29:59", "subject": "Web Development", "teacher": "Shine Sir", "room": "101" },
-                { "start": "10:30:00", "end": "11:29:59", "subject": "Computer Networks", "teacher": "Mr. Vijay", "room": "102" },
-                { "start": "11:30:00", "end": "12:29:59", "subject": "English", "teacher": "Ms. Rekha", "room": "101" },
-                { "start": "12:30:00", "end": "13:29:59", "subject": "Lunch Break", "teacher": "", "room": "" },
-                { "start": "13:30:00", "end": "14:29:59", "subject": "Physics Lab", "teacher": "Ms. Priya", "room": "Lab 1" },
-                { "start": "14:30:00", "end": "15:29:59", "subject": "Digital Logic", "teacher": "Dr. Mehta", "room": "102" },
-                { "start": "15:30:00", "end": "16:29:59", "subject": "Operating Systems", "teacher": "Ms. Kavya", "room": "101" }
+                { "start": "09:30:01", "end": "10:30:00", "subject": "AAD", "teacher": "Shahana Miss", "room": "112" },
+                { "start": "10:30:01", "end": "11:30:00", "subject": "CD", "teacher": "Shine Sir", "room": "112" },
+                { "start": "11:30:01", "end": "12:30:00", "subject": "ELECTIVE", "teacher": "Drishya/Shajila Miss", "room": "LAB/112" },
+                { "start": "12:30:01", "end": "14:00:00", "subject": "Lunch Break", "teacher": "", "room": "" },
+                { "start": "14:00:01", "end": "14:50:00", "subject": "EE", "teacher": "Nahana Miss", "room": "MT-LAB" },
+                { "start": "14:50:01", "end": "15:40:00", "subject": "FH", "teacher": "Drishya Miss", "room": "MT-LAB" }
+                                     
             ]
             
             
