@@ -85,5 +85,9 @@ def show_timetable(college, department, semester):
 def calculator():
     return render_template('calculator.html')
 
+@app.route('/info')
+def info():
+    return render_template('info.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

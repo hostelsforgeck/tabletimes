@@ -399,9 +399,14 @@
         .app-description {
             background-color: var(--md-secondary-container);
             border-radius: var(--md-radius-medium);
-            padding: 16px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+            padding-right: 16px;
+
             margin-bottom: 24px;
             border-left: 4px solid var(--md-secondary);
+            border-right: 4px solid var(--md-secondary);
+
         }
 
         .app-description h2 {
@@ -575,6 +580,10 @@
         #resultTabs {
             display: none;
         }
+
+        .desc-desc{
+            padding-left: 25px;
+        }
     </style>
 </head>
 <body>
@@ -614,7 +623,7 @@
             <div class="app-description">
                 <ul>
                     <li><strong>If your attendance is above 75%:</strong>
-                        <ul>
+                        <ul class="desc-desc">
                             <li>It shows how many classes you can safely skip.</li>
                         </ul>
                         
@@ -622,7 +631,7 @@
                     
                     </li>
                     <li><strong>If your attendance is below 75%:</strong>
-                        <ul>
+                        <ul class="desc-desc">
                             <li>Start attending upcoming classes regularly or, </li>
                             <li>Try convincing your teacher to mark attendance for missed classes</li>
                         </ul>
