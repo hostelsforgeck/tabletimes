@@ -95,6 +95,8 @@
             font-size: 24px;
             cursor: pointer;
             padding: 8px;
+            padding-right: 35px;
+
         }
 
         .md-navbar-menu {
@@ -1002,25 +1004,29 @@
             <h2>Access to Your Timetable in "One Single Click"</h2>
             <div class="instruction-step highlight-step">
 
-                <div class="demo-video-container">
-                    <video autoplay muted loop playsinline class="demo-video">
-                        <source src="{{ url_for('static', filename='assets/videos/1.mp4') }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-overlay">
-                        <div class="video-caption">
-                            <i class="fas fa-bolt"></i> Access your current timetable instantly from homescreen
-                        </div>
-                    </div>
-                </div>
+                <!-- Replace this video element in your HTML -->
+<div class="demo-video-container">
+    <video id="demoVideo" autoplay muted loop playsinline class="demo-video">
+        <source src="{{ url_for('static', filename='assets/videos/1.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay">
+        <div class="video-caption">
+            <i class="fas fa-bolt"></i> Access your current timetable instantly from homescreen
+        </div>
+    </div>
+</div>
 
                 <p class="video-description">
                     Add tabletimes to your home screen and see exactly what class you have right now with just a single
                     tap.<br> No searching through schedules or opening multiple apps!
                     <br>
-                    <a href="#android">For Android Click Here</a>
+                    <span class="highlight-text"><a href="#android" style="text-decoration: none;color:#291859;margin-bottom: 14px;">For Android Click Here</a></span>
+                    
                     <br>
-                    <a href="#ios">For iOS Click Here</a>
+                    <span class="highlight-text"><a href="#ios" style="text-decoration: none;color:#291859">For iOS Click Here</a></span>
+
+                    
                 </p>
             </div>
 
@@ -1040,12 +1046,17 @@
                             </div>
                         </div>
 
-                        <p>For example: <strong>tabletimes.vercel.app/geck/csd/s2</strong></p>
+                        <p>For example: </p>
+                        <div class="url-example">
+                            <div class="url-template">
+                                <span class="domain">tabletimes.vercel.app</span>/<span class="path-part"><span class="parameter">geck</span></span>/<span class="path-part"><span class="parameter">csd</span></span>/<span class="path-part"><span class="parameter">s6</span></span>
+                            </div>
+                        </div>
 
                         <ul class="detail-list">
                             <li><strong>geck</strong> is your college code</li>
                             <li><strong>csd</strong> is your department</li>
-                            <li><strong>s2</strong> is your semester</li>
+                            <li><strong>s6</strong> is your semester</li>
                         </ul>
 
                         <div class="screenshot-gallery">
@@ -1418,6 +1429,40 @@
             element.scrollIntoView({ behavior: 'smooth' });
         }
     }
+</script>
+<!-- Add this script at the end of your body tag -->
+<script>
+    // Function to ensure video loads properly
+    document.addEventListener('DOMContentLoaded', function() {
+        const video = document.getElementById('demoVideo');
+        
+        // Force reload the video
+        if (video) {
+            // First try: reload the video element
+            video.load();
+            
+            // Second approach: handle visibility changes
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') {
+                    video.load();
+                    video.play().catch(e => console.log('Video autoplay prevented:', e));
+                }
+            });
+            
+            // Third approach: reload on tab activation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    if (tab.classList.contains('active') && 
+                        document.getElementById('quick-access').classList.contains('active')) {
+                        setTimeout(() => {
+                            video.load();
+                            video.play().catch(e => console.log('Video autoplay prevented:', e));
+                        }, 100);
+                    }
+                });
+            });
+        }
+    });
 </script>
 </body>
 
