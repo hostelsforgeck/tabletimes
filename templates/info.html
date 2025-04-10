@@ -7,6 +7,16 @@
     <title>tabletimes - Info</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap">
+     <!-- ------------------ -->
+
+     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+     <link rel="icon" href="{{ url_for('static', filename='assets/logo_512.png') }}" type="image/png">
+ 
+     <meta name="mobile-web-app-capable" content="yes">
+     <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo_512.png') }}">
+ 
+     <!-- --------------- -->
+      
     <style>
         /* Using your existing Material You color system and base styles */
         :root {
@@ -1001,7 +1011,7 @@
 
         <!-- Quick Access Tab Content -->
         <div id="quick-access" class="tab-content active">
-            <h2>Access to Your Timetable in "One Single Click"</h2>
+            <h2 style="justify-content: center;">Access to Your Timetable in "One Single Click"</h2>
             <div class="instruction-step highlight-step">
 
                 <!-- Replace this video element in your HTML -->

@@ -19,6 +19,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --md-primary: #6750A4;
@@ -622,15 +623,12 @@
             
             <div class="app-description">
                 <ul>
-                    <li><strong>If your attendance is above 75%:</strong>
+                    <li><strong>If your attendance is above the threshold:</strong>
                         <ul class="desc-desc">
                             <li>It shows how many classes you can safely skip.</li>
                         </ul>
-                        
-                        
-                    
                     </li>
-                    <li><strong>If your attendance is below 75%:</strong>
+                    <li><strong>If your attendance is below the threshold:</strong>
                         <ul class="desc-desc">
                             <li>Start attending upcoming classes regularly or, </li>
                             <li>Try convincing your teacher to mark attendance for missed classes</li>
@@ -638,8 +636,6 @@
                     </li>
                 </ul>
             </div>
-            
-            
             
             <div class="error" id="error"></div>
             
@@ -652,6 +648,11 @@
                     <label for="total">Total Classes</label>
                     <input type="number" id="total" min="1" placeholder="Enter number">
                 </div>
+                
+<div class="input-field">
+    <label for="threshold">Percentage Needed (%)</label>
+    <input type="number" id="threshold" placeholder="Default: 75" value="75">
+</div>
             </div>
             
             <div class="button-container">
@@ -661,7 +662,7 @@
                 </button>
             </div>
             
-            <!-- Tabs for results when attendance is below 75% -->
+            <!-- Tabs for results when attendance is below threshold -->
             <div id="resultTabs">
                 <div class="swipe-instruction">
                     <i class="fas fa-chevron-left"></i>
@@ -690,7 +691,7 @@
                 </div>
             </div>
             
-            <!-- For cases where attendance is above 75% -->
+            <!-- For cases where attendance is above threshold -->
             <div id="skipClassesContainer">
                 <div class="result-container" id="skipClassesResult"></div>
                 <table id="skipClassesTable"></table>
@@ -735,46 +736,110 @@
         }
 
         function calculateBunk() {
-            let attended = parseInt(document.getElementById('attended').value);
-            let total = parseInt(document.getElementById('total').value);
-            let resultTabs = document.getElementById('resultTabs');
-            let skipClassesContainer = document.getElementById('skipClassesContainer');
-            let errorDiv = document.getElementById('error');
-            
-            // Reset all result containers and tables
-            document.getElementById('attendMoreResult').innerHTML = "";
-            document.getElementById('begTeacherResult').innerHTML = "";
-            document.getElementById('skipClassesResult').innerHTML = "";
-            document.getElementById('attendMoreTable').innerHTML = "";
-            document.getElementById('begTeacherTable').innerHTML = "";
-            document.getElementById('skipClassesTable').innerHTML = "";
-            
-            resultTabs.style.display = 'none';
-            skipClassesContainer.style.display = 'none';
-            errorDiv.style.display = 'none';
+    // Get input values
+    let attended = parseInt(document.getElementById('attended').value);
+    let total = parseInt(document.getElementById('total').value);
+    let thresholdInput = document.getElementById('threshold').value;
+    let threshold = thresholdInput === "" ? 75 : parseFloat(thresholdInput); // Default to 75 only if empty
+    
+    let resultTabs = document.getElementById('resultTabs');
+    let skipClassesContainer = document.getElementById('skipClassesContainer');
+    let errorDiv = document.getElementById('error');
+    
+    // Reset all result containers and tables
+    document.getElementById('attendMoreResult').innerHTML = "";
+    document.getElementById('begTeacherResult').innerHTML = "";
+    document.getElementById('skipClassesResult').innerHTML = "";
+    document.getElementById('attendMoreTable').innerHTML = "";
+    document.getElementById('begTeacherTable').innerHTML = "";
+    document.getElementById('skipClassesTable').innerHTML = "";
+    
+    resultTabs.style.display = 'none';
+    skipClassesContainer.style.display = 'none';
+    errorDiv.style.display = 'none';
 
-            // Handle negative numbers
-            if (isNaN(attended) || isNaN(total) || attended > total || total <= 0 || attended < 0 || total < 0) {
-                errorDiv.textContent = "Please enter valid positive numbers (Classes attended cannot exceed total classes)";
-                errorDiv.style.display = 'block';
-                return;
-            }
+    // Validate inputs
+    if (isNaN(attended) || isNaN(total)) {
+        errorDiv.textContent = "Please fill in all fields with valid numbers";
+        errorDiv.style.display = 'block';
+        return;
+    }
 
-            let percentage = (attended / total) * 100;
-            
-            if (percentage < 75) {
-                resultTabs.style.display = 'block';
-                calculateAttendMoreOption(attended, total, percentage);
-                calculateBegTeacherOption(attended, total, percentage);
-                
-                // Default to first tab
-                switchTab(0);
-            } else {
-                skipClassesContainer.style.display = 'block';
-                calculateSkipClassesOption(attended, total, percentage);
-            }
-        }
+    if (attended > total) {
+        errorDiv.textContent = "Classes attended cannot exceed total classes";
+        errorDiv.style.display = 'block';
+        return;
+    }
 
+    if (total <= 0) {
+        errorDiv.textContent = "Total classes must be at least 1";
+        errorDiv.style.display = 'block';
+        return;
+    }
+
+    if (attended < 0) {
+        errorDiv.textContent = "Classes attended cannot be negative";
+        errorDiv.style.display = 'block';
+        return;
+    }
+
+    // Fixed validation for threshold - explicitly check if it's outside allowed range
+    if (isNaN(threshold) || threshold < 70 || threshold > 100) {
+        errorDiv.textContent = "Please enter a valid threshold percentage between 70% and 100%";
+        errorDiv.style.display = 'block';
+        return;
+    }
+
+    let percentage = (attended / total) * 100;
+    
+    // Special case for 100% threshold when classes have been missed
+    if (threshold === 100 && attended < total) {
+        // Only show the "convince teacher" option in this case
+        resultTabs.style.display = 'block';
+        document.getElementById('attendMoreResult').innerHTML = `
+            <div class="result-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div> 
+            <div class="result-label">Not Possible</div>
+            <div class="result-explanation">
+                You've already missed ${total - attended} classes, so reaching 100% by attending future classes is impossible. Your only option is to convince your teacher to mark attendance for missed classes.
+            </div>
+        `;
+        calculateBegTeacherOption(attended, total, percentage, threshold);
+        
+        // Default to second tab (convince teacher) for this special case
+        switchTab(1);
+        return;
+    }
+    
+    if (percentage < threshold) {
+        resultTabs.style.display = 'block';
+        calculateAttendMoreOption(attended, total, percentage, threshold);
+        calculateBegTeacherOption(attended, total, percentage, threshold);
+        
+        // Default to first tab
+        switchTab(0);
+    } else {
+        skipClassesContainer.style.display = 'block';
+        calculateSkipClassesOption(attended, total, percentage, threshold);
+    }
+}
+
+// Helper function to calculate classes needed to attend
+function calculateAttendNeeded(attended, total, threshold) {
+    if (threshold === 100 && attended < total) {
+        return Infinity; // Cannot reach 100% if already missed classes
+    }
+    
+    let needed = 0;
+    let maxIterations = 1000; // Safety limit
+    
+    while ((attended + needed) / (total + needed) * 100 < threshold && needed < maxIterations) {
+        needed++;
+    }
+    
+    return needed < maxIterations ? needed : Infinity;
+}
         function createTableHeader(tableId) {
             const table = document.getElementById(tableId);
             let headerRow = `<tr class="show">
@@ -813,7 +878,7 @@
             }, 300);
         }
 
-        function calculateAttendMoreOption(attended, total, percentage) {
+        function calculateAttendMoreOption(attended, total, percentage, threshold) {
             const resultContainer = document.getElementById('attendMoreResult');
             const table = createTableHeader('attendMoreTable');
             
@@ -825,7 +890,7 @@
             
             // Calculate classes needed to attend
             let needed = 0;
-            while ((attended + needed) / (total + needed) * 100 < 75) {
+            while ((attended + needed) / (total + needed) * 100 < threshold) {
                 needed++;
                 let newAttended = attended + needed;
                 let newTotal = total + needed;
@@ -847,16 +912,16 @@
                     <div class="result-value">${needed}</div>
                     <div class="result-label">upcoming classes regularly</div>
                     <div class="result-explanation">
-                        Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
+                        Your current attendance is ${percentage.toFixed(2)}%, which is below the required ${threshold}%. 
                         <br>
-                        Attend ${needed} more classes without missing any to reach the 75%.
+                        Attend ${needed} more classes without missing any to reach the ${threshold}%.
                     </div>
                 `;
                 scrollToResult('resultTabs');
             }, 300);
         }
 
-        function calculateBegTeacherOption(attended, total, percentage) {
+        function calculateBegTeacherOption(attended, total, percentage, threshold) {
             const resultContainer = document.getElementById('begTeacherResult');
             const table = createTableHeader('begTeacherTable');
             
@@ -868,7 +933,7 @@
             
             // Calculate how many attendance marks needed from teacher
             let needed = 0;
-            while ((attended + needed) / total * 100 < 75) {
+            while ((attended + needed) / total * 100 < threshold) {
                 needed++;
                 let newAttended = attended + needed;
                 let newPercentage = (newAttended / total) * 100;
@@ -889,15 +954,15 @@
                     <div class="result-value">${needed}</div>
                     <div class="result-label"> missed classes</div>
                     <div class="result-explanation">
-                        Your current attendance is ${percentage.toFixed(2)}%, which is below the required 75%. 
+                        Your current attendance is ${percentage.toFixed(2)}%, which is below the required ${threshold}%. 
                         <br>
-                        Ask your teacher to mark attendance for ${needed} classes you missed so you can reach 75%.
+                        Ask your teacher to mark attendance for ${needed} classes you missed so you can reach ${threshold}%.
                     </div>
                 `;
             }, 300);
         }
 
-        function calculateSkipClassesOption(attended, total, percentage) {
+        function calculateSkipClassesOption(attended, total, percentage, threshold) {
             const resultContainer = document.getElementById('skipClassesResult');
             const table = createTableHeader('skipClassesTable');
             
@@ -909,7 +974,7 @@
             
             // Calculate how many classes you can skip
             let bunks = 0;
-            while ((attended) / (total + bunks) * 100 >= 75) {
+            while ((attended) / (total + bunks) * 100 >= threshold) {
                 bunks++;
                 let newTotal = total + bunks;
                 let newPercentage = (attended / newTotal) * 100;
@@ -921,7 +986,7 @@
                 `, 200 + (bunks * 150));
             }
             
-            // We need to subtract 1 because the loop continues until we fall below 75%
+            // We need to subtract 1 because the loop continues until we fall below threshold
             let safeBunks = Math.max(0, bunks - 1); 
             
             setTimeout(() => {
@@ -933,7 +998,7 @@
                     <div class="result-value">${safeBunks}</div>
                     <div class="result-label">classes</div>
                     <div class="result-explanation">
-                        Your current attendance is ${percentage.toFixed(2)}%, which is above the required 75%.
+                        Your current attendance is ${percentage.toFixed(2)}%, which is above the required ${threshold}%.
                         ${safeBunks > 0 ? 
                           `You can skip up to ${safeBunks} classes while still maintaining the minimum attendance requirement.` : 
                           `You cannot skip any classes as your attendance is just above the minimum requirement.`}
