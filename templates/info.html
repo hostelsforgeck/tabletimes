@@ -890,7 +890,10 @@
         }
 
         .quote-block {
-            border-left: 4px solid var(--md-primary);
+            /* border-left: 4px solid var(--md-primary);
+            border-right: 4px solid var(--md-primary); */
+
+
             padding-left: var(--spacing-md);
             margin: var(--spacing-lg) 0;
             font-style: italic;
@@ -1268,7 +1271,7 @@
                                     my friend saw on Instagram. Something simple—but it got us thinking:
                                 </p>
                                 <div class="quote-block">
-                                    "What if checking the class timetable could be as easy as scanning a code?"
+                                    "What if checking the class timetable could be as easy as scanning a QR code?"
                                 </div>
                                 <p>
                                     That simple question sparked a journey to solve an everyday problem we all faced.
@@ -1300,8 +1303,7 @@
                                     So my friend came up with this cool idea:
                                 </p>
                                 <p>
-                                    <span class="highlight-text">Put a QR code in the classroom.</span> When you scan
-                                    it, it takes you straight to the timetable.
+                                    <span class="highlight-text">Place a QR code on the classroom wall.</span> Scan it, and it instantly shows you what class is happening right now—no apps, no searching, just the info you need.
                                 </p>
                                 <p>
                                     No more gallery scrolling. Just scan and you're done. The solution was elegantly
@@ -1382,63 +1384,97 @@
     <!-- Replace the incorrect JavaScript at the end of your file -->
 
 <script>
-    // Tab switching functionality
-    function openTab(tabName) {
-        const tabContents = document.getElementsByClassName('tab-content');
-        for (let content of tabContents) {
-            content.classList.remove('active');
-        }
-
-        const tabs = document.getElementsByClassName('tab');
-        for (let tab of tabs) {
-            tab.classList.remove('active');
-        }
-
-        document.getElementById(tabName).classList.add('active');
-        event.currentTarget.classList.add('active');
+ // Tab switching functionality
+function openTab(tabName) {
+    // Hide all tab contents
+    const tabContents = document.getElementsByClassName('tab-content');
+    for (let content of tabContents) {
+        content.classList.remove('active');
     }
 
-    // Navbar toggle functionality
-    document.addEventListener('DOMContentLoaded', function () {
-        const navbarToggler = document.querySelector('.md-navbar-toggler');
-        const navbarMenu = document.querySelector('.md-navbar-menu');
+    // Deactivate all tab buttons
+    const tabs = document.getElementsByClassName('tab');
+    for (let tab of tabs) {
+        tab.classList.remove('active');
+    }
 
-        navbarToggler.addEventListener('click', function () {
-            navbarMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function (event) {
-            const isClickInside = navbarToggler.contains(event.target) ||
-                navbarMenu.contains(event.target);
-
-            if (!isClickInside && navbarMenu.classList.contains('active')) {
-                navbarMenu.classList.remove('active');
-            }
-        });
-
-        // Close menu when window is resized to desktop view
-        window.addEventListener('resize', function () {
-            if (window.innerWidth > 768 && navbarMenu.classList.contains('active')) {
-                navbarMenu.classList.remove('active');
-            }
-        });
-    });
+    // Activate the selected tab content
+    document.getElementById(tabName).classList.add('active');
     
-    // Add this function to navigate between tabs
-    function navigateToTab(tabId) {
-        // First activate the tab
-        const tabButton = document.querySelector(`.tab[onclick="openTab('${tabId}')"]`);
-        if (tabButton) {
-            tabButton.click();
-        }
+    // Activate the corresponding tab button
+    const currentTab = document.querySelector(`.tab[onclick="openTab('${tabName}')"]`);
+    if (currentTab) {
+        currentTab.classList.add('active');
+    }
+    
+    // Update URL hash without scrolling
+    history.pushState(null, null, `#${tabName}`);
+}
+
+// Function to check URL hash and open the corresponding tab
+function checkHashAndOpenTab() {
+    let hash = window.location.hash;
+    // Remove the # character
+    if (hash) {
+        hash = hash.substring(1);
         
-        // Then scroll to the element if needed
-        const element = document.getElementById(tabId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+        // Check if this tab exists
+        const tabContent = document.getElementById(hash);
+        if (tabContent && tabContent.classList.contains('tab-content')) {
+            openTab(hash);
+            return true;
         }
     }
+    return false;
+}
+
+// Navbar toggle functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const navbarToggler = document.querySelector('.md-navbar-toggler');
+    const navbarMenu = document.querySelector('.md-navbar-menu');
+
+    // Check hash on page load
+    if (!checkHashAndOpenTab()) {
+        // If no valid hash or no hash at all, default to first tab
+        openTab('quick-access');
+    }
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', checkHashAndOpenTab);
+
+    navbarToggler.addEventListener('click', function () {
+        navbarMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (event) {
+        const isClickInside = navbarToggler.contains(event.target) ||
+            navbarMenu.contains(event.target);
+
+        if (!isClickInside && navbarMenu.classList.contains('active')) {
+            navbarMenu.classList.remove('active');
+        }
+    });
+
+    // Close menu when window is resized to desktop view
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768 && navbarMenu.classList.contains('active')) {
+            navbarMenu.classList.remove('active');
+        }
+    });
+});
+
+// Function to navigate between tabs
+function navigateToTab(tabId) {
+    // First activate the tab
+    openTab(tabId);
+    
+    // Then scroll to the element if needed
+    const element = document.getElementById(tabId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+}
 </script>
 <!-- Add this script at the end of your body tag -->
 <script>
